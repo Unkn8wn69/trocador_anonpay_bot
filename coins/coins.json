@@ -1,0 +1,632 @@
+[
+  {
+    "short": "BTC",
+    "name": "Bitcoin",
+    "network": "Mainnet"
+  },
+  {
+    "short": "BTC",
+    "name": "Bitcoin (Lightning)",
+    "network": "Lightning"
+  },
+  {
+    "short": "ETH",
+    "name": "Ethereum (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "LTC",
+    "name": "Litecoin",
+    "network": "Mainnet"
+  },
+  {
+    "short": "LTC",
+    "name": "Litecoin (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "XMR",
+    "name": "Monero",
+    "network": "Mainnet"
+  },
+  {
+    "short": "BNB",
+    "name": "Binance Coin (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "ADA",
+    "name": "Cardano",
+    "network": "Mainnet"
+  },
+  {
+    "short": "DOGE",
+    "name": "Dogecoin",
+    "network": "Mainnet"
+  },
+  {
+    "short": "MATIC",
+    "name": "Polygon (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "MATIC",
+    "name": "Polygon (Polygon)",
+    "network": "Polygon"
+  },
+  {
+    "short": "SOL",
+    "name": "Solana",
+    "network": "Mainnet"
+  },
+  {
+    "short": "WBTC",
+    "name": "Wrapped BTC",
+    "network": "Mainnet"
+  },
+  {
+    "short": "BUSD",
+    "name": "Binance USD (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "BUSD",
+    "name": "Binance USD (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "BUSD",
+    "name": "Binance USD (MATIC)",
+    "network": "MATIC"
+  },
+  {
+    "short": "DAI",
+    "name": "Dai (Arbitrum)",
+    "network": "Arbitrum"
+  },
+  {
+    "short": "DAI",
+    "name": "Dai (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "DAI",
+    "name": "Dai (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "DAI",
+    "name": "Dai (Polygon)",
+    "network": "Polygon"
+  },
+  {
+    "short": "GUSD",
+    "name": "Gemini USD (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "USDP",
+    "name": "Pax Dollar (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (ALGO)",
+    "network": "ALGO"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (Avax-c)",
+    "network": "Avax-c"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (EOS)",
+    "network": "EOS"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (KAVA)",
+    "network": "KAVA"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (NEAR)",
+    "network": "NEAR"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (OMNI)",
+    "network": "OMNI"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (Polygon)",
+    "network": "Polygon"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (SOL)",
+    "network": "SOL"
+  },
+  {
+    "short": "USDT",
+    "name": "Tether (TRC20)",
+    "network": "TRC20"
+  },
+  {
+    "short": "TUSD",
+    "name": "TrueUSD (AVAXC)",
+    "network": "AVAXC"
+  },
+  {
+    "short": "TUSD",
+    "name": "TrueUSD (BEP20)",
+    "network": "BEP20"
+  },
+  {
+    "short": "TUSD",
+    "name": "TrueUSD (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "TUSD",
+    "name": "TrueUSD (Polygon)",
+    "network": "Polygon"
+  },
+  {
+    "short": "TUSD",
+    "name": "TrueUSD (TRC20)",
+    "network": "TRC20"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (ALGO)",
+    "network": "ALGO"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (AVAXC)",
+    "network": "AVAXC"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (OPTIMISM)",
+    "network": "OPTIMISM"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (Polygon)",
+    "network": "Polygon"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (SOL)",
+    "network": "SOL"
+  },
+  {
+    "short": "USDC",
+    "name": "USD Coin (TRC20)",
+    "network": "TRC20"
+  },
+  {
+    "short": "1INCH",
+    "name": "1inch (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "AAVE",
+    "name": "Aave (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "ALGO",
+    "name": "Algorand",
+    "network": "Mainnet"
+  },
+  {
+    "short": "APT",
+    "name": "Aptos",
+    "network": "Mainnet"
+  },
+  {
+    "short": "ARB",
+    "name": "Arbitrum (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "AVAX",
+    "name": "Avalanche (C-Chain)",
+    "network": "C-Chain"
+  },
+  {
+    "short": "AVAX",
+    "name": "Avalanche (X-Chain)",
+    "network": "X-Chain"
+  },
+  {
+    "short": "BAT",
+    "name": "BAT (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "BAND",
+    "name": "Band (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "BDX",
+    "name": "Beldex",
+    "network": "Mainnet"
+  },
+  {
+    "short": "BNB",
+    "name": "Binance Coin (BEP2)",
+    "network": "BEP2"
+  },
+  {
+    "short": "BTTC",
+    "name": "BitTorrent-New (TRC20)",
+    "network": "TRC20"
+  },
+  {
+    "short": "BTC",
+    "name": "Bitcoin (BEP20)",
+    "network": "BEP20"
+  },
+  {
+    "short": "BCH",
+    "name": "Bitcoin Cash",
+    "network": "Mainnet"
+  },
+  {
+    "short": "LINK",
+    "name": "Chainlink (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "CHZ",
+    "name": "Chiliz (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "ATOM",
+    "name": "Cosmos (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "ATOM",
+    "name": "Cosmos (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "CRO",
+    "name": "Crypto-com (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "CRV",
+    "name": "Curve DAO (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "DASH",
+    "name": "Dash",
+    "network": "Mainnet"
+  },
+  {
+    "short": "DCR",
+    "name": "Decred",
+    "network": "Mainnet"
+  },
+  {
+    "short": "DERO",
+    "name": "Dero",
+    "network": "Mainnet"
+  },
+  {
+    "short": "EOS",
+    "name": "EOS (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "ERGO",
+    "name": "Ergo",
+    "network": "Mainnet"
+  },
+  {
+    "short": "ETH",
+    "name": "Ethereum (Arbitrum)",
+    "network": "Arbitrum"
+  },
+  {
+    "short": "ETH",
+    "name": "Ethereum (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "ETC",
+    "name": "Ethereum Classic",
+    "network": "Mainnet"
+  },
+  {
+    "short": "FTT",
+    "name": "FTX Token (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "FTM",
+    "name": "Fantom (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "FTM",
+    "name": "Fantom (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "FIL",
+    "name": "Filecoin (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "FIL",
+    "name": "Filecoin (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "FIRO",
+    "name": "Firo (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "FIRO",
+    "name": "Firo (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "FLUX",
+    "name": "Flux (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "XHV",
+    "name": "Haven Protocol",
+    "network": "Mainnet"
+  },
+  {
+    "short": "HBAR",
+    "name": "Hedera",
+    "network": "Mainnet"
+  },
+  {
+    "short": "HOT",
+    "name": "Holo (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "ICP",
+    "name": "Internet Computer",
+    "network": "Mainnet"
+  },
+  {
+    "short": "KAVA",
+    "name": "Kava",
+    "network": "Mainnet"
+  },
+  {
+    "short": "KMD",
+    "name": "Komodo",
+    "network": "Mainnet"
+  },
+  {
+    "short": "LDO",
+    "name": "Lido DAO",
+    "network": "Mainnet"
+  },
+  {
+    "short": "LRC",
+    "name": "Loopring",
+    "network": "Mainnet"
+  },
+  {
+    "short": "MKR",
+    "name": "Maker",
+    "network": "Mainnet"
+  },
+  {
+    "short": "EGLD",
+    "name": "MultiversX (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "XEM",
+    "name": "NEM",
+    "network": "Mainnet"
+  },
+  {
+    "short": "XNO",
+    "name": "Nano",
+    "network": "Mainnet"
+  },
+  {
+    "short": "NEAR",
+    "name": "Near",
+    "network": "Mainnet"
+  },
+  {
+    "short": "NEAR",
+    "name": "Near (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "NEO",
+    "name": "Neo (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "NEXO",
+    "name": "Nexo (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "OKB",
+    "name": "OKB",
+    "network": "Mainnet"
+  },
+  {
+    "short": "OXT",
+    "name": "Orchid (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "PAXG",
+    "name": "PAX Gold (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "PIVX",
+    "name": "PIVX",
+    "network": "Mainnet"
+  },
+  {
+    "short": "CAKE",
+    "name": "PancakeSwap (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "ARRR",
+    "name": "Pirate Chain",
+    "network": "Mainnet"
+  },
+  {
+    "short": "DOT",
+    "name": "Polkadot (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "DOT",
+    "name": "Polkadot (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "QNT",
+    "name": "Quant",
+    "network": "Mainnet"
+  },
+  {
+    "short": "RVN",
+    "name": "Ravencoin",
+    "network": "Mainnet"
+  },
+  {
+    "short": "XRP",
+    "name": "Ripple (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "SCRT",
+    "name": "Secret (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "SHIB",
+    "name": "Shiba Inu (BSC)",
+    "network": "BSC"
+  },
+  {
+    "short": "SHIB",
+    "name": "Shiba Inu (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "XLM",
+    "name": "Stellar (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "STRAX",
+    "name": "Stratis",
+    "network": "Mainnet"
+  },
+  {
+    "short": "SUSHI",
+    "name": "SushiSwap (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "RUNE",
+    "name": "THORChain",
+    "network": "Mainnet"
+  },
+  {
+    "short": "TRX",
+    "name": "TRON",
+    "network": "Mainnet"
+  },
+  {
+    "short": "XTZ",
+    "name": "Tezos",
+    "network": "Mainnet"
+  },
+  {
+    "short": "TON",
+    "name": "Toncoin (Mainnet)",
+    "network": "Mainnet"
+  },
+  {
+    "short": "UNI",
+    "name": "Uniswap (ERC20)",
+    "network": "ERC20"
+  },
+  {
+    "short": "LEO",
+    "name": "Unus Sed Leo",
+    "network": "Mainnet"
+  },
+  {
+    "short": "VET",
+    "name": "VeChain",
+    "network": "Mainnet"
+  },
+  {
+    "short": "WAVES",
+    "name": "Waves",
+    "network": "Mainnet"
+  },
+  {
+    "short": "WOW",
+    "name": "Wownero",
+    "network": "Mainnet"
+  },
+  {
+    "short": "ZEC",
+    "name": "Zcash",
+    "network": "Mainnet"
+  },
+  {
+    "short": "ZIL",
+    "name": "Zilliqa",
+    "network": "Mainnet"
+  }
+]
