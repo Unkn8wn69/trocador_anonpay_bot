@@ -116,3 +116,18 @@ Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else '
 """
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+async def edit_bool(update, context, query, user_info, variable, text, back_callback):
+    keyboard = [
+            [
+                InlineKeyboardButton("✅ Yes", callback_data=f"switch_{variable}_yes"),
+                InlineKeyboardButton("❌ No", callback_data=f"switch_{variable}_no"),
+            ],
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data=back_callback),
+            ],
+    ]
+
+    reply_text=text
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))

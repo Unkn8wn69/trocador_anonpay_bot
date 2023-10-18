@@ -46,6 +46,7 @@ async def callbacks(update: Update, context: CallbackContext):
 
     category = data[0]
     action = data[1]
+    user_info = context.user_data
 
     if category == "coin":
         if action == "select":
@@ -104,10 +105,16 @@ async def callbacks(update: Update, context: CallbackContext):
         elif action == "type":
             if len(data) < 3:
                 await edit_type(update, context, query, context.user_data)
+            else:
+                subaction = data[2]
+                if subaction == "donation":
+                    await edit_bool(update, context, query, context.user_data, )
         elif action == "ui":
             await info_edit(update, context, query)
         elif action == "other":
             await info_edit(update, context, query)
+    elif category == "switch":
+        switch_bool(update, context, user_info, data)
 
 
 async def get_address(update, context):
