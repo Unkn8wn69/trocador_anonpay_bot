@@ -123,7 +123,7 @@ Memo/ExtraID: `{user_info['memo'] if 'memo' in user_info else '0'}`
 Donation: {user_info['donation'] if 'donation' in user_info else 'False'}
 Remove Direct-Pay (Removes option to pay with receiving coin): {user_info['remove_direct_pay'] if 'remove_direct_pay' in user_info else 'False'}
 Allow to edit amount: {user_info['editable'] if 'editable' in user_info else 'False'}
-Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else 'False'}
+Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else 'True'}
 
 *UI & Appearance*
 
