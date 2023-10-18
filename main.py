@@ -145,8 +145,15 @@ Webhook: {display_if_set(user_info, 'webhook')}
 
 Link: `{generate_link(user_info)}`
 """
-        #info_text = f"Coin: {user_info['ticker_to']}\nNetwork: {user_info['network_to']}\nAddress: {user_info['address']}"
-        await update.message.reply_text("*Your current options:*\n" + info_text, parse_mode='Markdown')
+        keyboard = [
+            [
+                InlineKeyboardButton("Edit", callback_data="info_edit"),
+                InlineKeyboardButton("Reset", callback_data="info_reset"),
+                InlineKeyboardButton("Contribute", url="https://github.com/Unkn8wn69/trocador_anonpay_bot/"),
+            ],
+        ]
+
+        await update.message.reply_text(info_text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
     else:
         await update.message.reply_text("No information available. Use /start to set your information.")
 
