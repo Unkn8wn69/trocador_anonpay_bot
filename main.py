@@ -19,7 +19,7 @@ logging.basicConfig(
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
-CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
+GETTING_ADDRESS = range(1)
 
 OPTIONS_PER_PAGE = 5
 COLUMNS_PER_PAGE = 3
@@ -87,8 +87,8 @@ async def callbacks(update: Update, context: CallbackContext):
             selected_coin = data[2]
             network = data[3]
 
-            context.user_data['coin'] = selected_coin
-            context.user_data['network'] = network
+            context.user_data['ticker_to'] = selected_coin
+            context.user_data['network_to'] = network
 
             keyboard = [
             [
@@ -109,22 +109,61 @@ async def callbacks(update: Update, context: CallbackContext):
             await update.callback_query.answer()
             await start(update, context, query)
         elif action == "done":
-            print("test")
-            
+            await query.edit_message_text("Please enter your address:")
+            return GETTING_ADDRESS
+
+async def get_address(update, context):
+    user_data = context.user_data
+    user_data['address'] = update.message.text
+
+    await update.message.reply_text("Address saved. You can now continue.")
+    return ConversationHandler.END
+
+def display_if_set(user_info, variable):
+    return user_info[variable] if variable in user_info else 'none'
+
+
+def generate_link(user_info):
+    return f"https://trocador.app/anonpay/?ticker_to={user_info['ticker_to']}&network_to={user_info['network_to']}&address={user_info['address']}"
+
 async def info(update, context):
     user_info = context.user_data
     
     if user_info:
-        info_text = f"Coin: {user_info['coin']}\nNetwork: {user_info['network']}"
-        await update.message.reply_text("Your current information:\n" + info_text)
+        info_text = f"""
+Coin: {display_if_set(user_info, 'ticker_to')}
+Network: {display_if_set(user_info, 'network_to')}
+Address: `{display_if_set(user_info, 'address')}`
+
+*Design options:*
+
+Button color: `{user_info['buttonbgcolor'] if 'buttonbgcolor' in user_info else 'ff3c00'}`
+Text color: `{user_info['textcolor'] if 'textcolor' in user_info else 'fffff'}`
+Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
+
+Link: `{generate_link(user_info)}`
+"""
+        #info_text = f"Coin: {user_info['ticker_to']}\nNetwork: {user_info['network_to']}\nAddress: {user_info['address']}"
+        await update.message.reply_text("*Your current options:*\n" + info_text, parse_mode='Markdown')
     else:
         await update.message.reply_text("No information available. Use /start to set your information.")
+
+address_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_address)
+
+address_conversation_handler = ConversationHandler(
+    entry_points=[CallbackQueryHandler(callbacks)],
+    states={
+        GETTING_ADDRESS: [address_handler],
+    },
+    fallbacks=[],
+)
 
 def main() -> None:
     persistence = PicklePersistence(filepath="databot")
     application = Application.builder().token(bot_token).build()
     
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(address_conversation_handler) 
     application.add_handler(CallbackQueryHandler(callbacks))
     application.add_handler(CommandHandler('info', info))
     
