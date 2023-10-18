@@ -78,10 +78,18 @@ async def callbacks(update: Update, context: CallbackContext):
             reply_text = f"You selected the coin: {selected_coin} on {network}"
             await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
         elif action == "next":
-            page += 1
-            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+            if page < total_pages - 1:
+                page += 1
+                await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
         elif action == "prev":
-            page -= 1
+            if page >= 1:
+                page -= 1
+                await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+        elif action == "first":
+            page = 0
+            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+        elif action == "last":
+            page = total_pages - 1
             await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
         elif action == "edit":
             await update.callback_query.answer()

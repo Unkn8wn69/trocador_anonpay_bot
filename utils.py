@@ -23,12 +23,22 @@ def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_P
             row.append(button)
         keyboard.append(row)
 
-    if page > 0:
-        prev_button = InlineKeyboardButton(text="Previous Page", callback_data=f"coin_prev_{page}")
-        keyboard.append([prev_button])
-    if page < total_pages - 1:
-        next_button = InlineKeyboardButton(text="Next Page", callback_data=f"coin_next_{page}")
-        keyboard.append([next_button])
+    if page >= 1:
+        left_button = InlineKeyboardButton(text="⬅️ Previous", callback_data=f"coin_prev_{page}")
+    else:
+        left_button = InlineKeyboardButton(text="🔚 Last", callback_data=f"coin_last")
+
+    if page + 1 < total_pages:
+        right_button = InlineKeyboardButton(text="Next ➡️", callback_data=f"coin_next_{page}")
+    else:
+        right_button = InlineKeyboardButton(text="1️⃣ First", callback_data=f"coin_first")
+
+    page_buttons = [
+        left_button,
+        InlineKeyboardButton(text=f"📋 {page + 1}/{total_pages}", callback_data=f"coin_prev_{page}"),
+        right_button
+    ]
+    keyboard.append(page_buttons)
 
     return keyboard
 
