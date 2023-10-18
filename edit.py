@@ -88,3 +88,31 @@ async def edit_coin_memo(update, context, query, user_info):
     reply_text="What would you like to be the memo/ExtraID for the transaction?"
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+# Editing the Transaction type
+
+async def edit_type(update, context, query, user_info):
+    keyboard = [
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data="info_edit"),
+                InlineKeyboardButton("🫶 Donation", callback_data="edit_type_donation"),
+                InlineKeyboardButton("🎯 Direct-Pay", callback_data="edit_type_direct"),
+            ],
+            [
+                InlineKeyboardButton("👌 Simple checkout", callback_data="edit_type_simple"),
+                InlineKeyboardButton("⚖️ Editable Amount", callback_data="edit_type_editable"),
+            ],
+    ]
+
+    reply_text=f"""
+*Transaction Type*
+
+Donation: {user_info['donation'] if 'donation' in user_info else 'False'}
+Remove Direct-Pay: {user_info['remove_direct_pay'] if 'remove_direct_pay' in user_info else 'False'}
+Allow to edit amount: {user_info['editable'] if 'editable' in user_info else 'False'}
+Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else 'True'}
+
+*What option would you like to edit?*
+"""
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
