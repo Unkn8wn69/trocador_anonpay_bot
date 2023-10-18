@@ -131,3 +131,33 @@ async def edit_bool(update, context, query, user_info, variable, text, back_call
     reply_text=text
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+# Editing the Transaction type
+
+async def edit_ui(update, context, query, user_info):
+    keyboard = [
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data="info_edit"),
+                InlineKeyboardButton("📛 Name", callback_data="edit_ui_name"),
+                InlineKeyboardButton("🖹 Description", callback_data="edit_ui_description"),
+            ],
+            [
+                InlineKeyboardButton("🔳 Button", callback_data="edit_ui_button"),
+                InlineKeyboardButton("🔤 Text", callback_data="edit_ui_text"),
+                InlineKeyboardButton("🔲 Background", callback_data="edit_ui_bgcolor"),
+            ],
+    ]
+
+    reply_text=f"""
+*UI & Appearance*
+
+Name: {display_if_set(user_info, 'name')}
+Description: {display_if_set(user_info, 'description')}
+Button color: `{user_info['buttonbgcolor'] if 'buttonbgcolor' in user_info else 'ff3c00'}`
+Text color: `{user_info['textcolor'] if 'textcolor' in user_info else 'fffff'}`
+Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
+
+*What option would you like to edit?*
+"""
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))

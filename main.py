@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Variables
 
-GETTING_ADDRESS, GETTING_AMOUNT, GETTING_MEMO = range(3)
+GETTING_ADDRESS, GETTING_AMOUNT, GETTING_MEMO, GETTING_NAME, GETTING_DESCRIPTION, GETTING_BUTTONBGCOLOR, GETTING_TEXTCOLOR = range(7)
 
 OPTIONS_PER_PAGE = 5
 COLUMNS_PER_PAGE = 3
@@ -116,7 +116,12 @@ async def callbacks(update: Update, context: CallbackContext):
                 elif subaction == "editable":
                     await edit_bool(update, context, query, user_info, subaction, "Would you like that the user can change the amount?", "edit_type")
         elif action == "ui":
-            await info_edit(update, context, query)
+            if len(data) < 3:
+                await edit_ui(update, context, query, context.user_data)
+            else:
+                subaction = data[2]
+                if subaction == "donation":
+                    await edit_bool(update, context, query, user_info, subaction, "Would you like this anonpay to be a donation-page?", "edit_type")
         elif action == "other":
             await info_edit(update, context, query)
     elif category == "switch":
@@ -147,6 +152,34 @@ async def get_amount(update, context):
 async def get_memo(update, context):
     user_data = context.user_data
     user_data['memo'] = update.message.text
+
+    await info(update, context)
+    return ConversationHandler.END
+
+async def get_name(update, context):
+    user_data = context.user_data
+    user_data['name'] = update.message.text
+
+    await info(update, context)
+    return ConversationHandler.END
+
+async def get_description(update, context):
+    user_data = context.user_data
+    user_data['description'] = update.message.text
+
+    await info(update, context)
+    return ConversationHandler.END
+
+async def get_buttonbgcolor(update, context):
+    user_data = context.user_data
+    user_data['buttonbgcolor'] = update.message.text
+
+    await info(update, context)
+    return ConversationHandler.END
+
+async def get_textcolor(update, context):
+    user_data = context.user_data
+    user_data['textcolor'] = update.message.text
 
     await info(update, context)
     return ConversationHandler.END
@@ -195,7 +228,7 @@ Link: `{generate_link(user_info)}`
             [
                 InlineKeyboardButton("Edit", callback_data="info_edit"),
                 InlineKeyboardButton("Reset", callback_data="info_reset"),
-                InlineKeyboardButton("Contribute", url="https://github.com/Unkn8wn69/trocador_anonpay_bot/"),
+                InlineKeyboardButton("Contribute", url="https://github.com/Unkn8wn69/trocador_anonpay_bot"),
             ],
         ]
         
@@ -210,6 +243,12 @@ Link: `{generate_link(user_info)}`
 address_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_address)
 amount_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_amount)
 memo_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_memo)
+
+name_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_name)
+description_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_description)
+buttonbgcolor_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_buttonbgcolor)
+textcolor_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_textcolor)
+
 
 conversation_handler = ConversationHandler(
     entry_points=[CallbackQueryHandler(callbacks)],
