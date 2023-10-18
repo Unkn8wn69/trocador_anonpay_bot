@@ -4,7 +4,7 @@ import json
 from math import ceil
 from typing import Dict
 from main import page, total_pages, options
-from utils import generate_buttons
+from utils import generate_buttons, display_if_set
 
 async def info_edit(update, context, query):
     keyboard = [
@@ -38,3 +38,31 @@ async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_P
         await update.message.reply_text(reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
     except:
         await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+
+# Editing questions for coin details
+
+async def edit_coin_details(update, context, query, user_info):
+    keyboard = [
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data="info_edit"),
+                InlineKeyboardButton("🪙 Crypto & Address", callback_data="edit_coin_coin"),
+            ],
+            [
+                InlineKeyboardButton("🫰 Amount", callback_data="edit_coin_amount"),
+                InlineKeyboardButton("🆔 Memo/ExtraID", callback_data="edit_coin_memo"),
+            ],
+    ]
+
+    reply_text=f"""
+*Coin Details*
+
+Coin: {display_if_set(user_info, 'ticker_to')}
+Network: {display_if_set(user_info, 'network_to')}
+Address: `{display_if_set(user_info, 'address')}`
+Amount: `{user_info['amount'] if 'amount' in user_info else '0.1'}`
+Memo/ExtraID: `{user_info['memo'] if 'memo' in user_info else '0'}`
+
+*What option would you like to edit?*
+"""
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))

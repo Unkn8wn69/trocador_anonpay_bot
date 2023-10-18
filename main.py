@@ -89,7 +89,16 @@ async def callbacks(update: Update, context: CallbackContext):
             await info_edit(update, context, query)
     elif category == "edit":
         if action == "coin":
-            await info_edit(update, context, query)
+            if len(data) < 3:
+                await edit_coin_details(update, context, query, context.user_data)
+            else:
+                subaction = data[2]
+                if subaction == "coin":
+                    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
+                elif subaction == "amount":
+                    print("amount")
+                elif subaction == "memo":
+                    print("memo")
         elif action == "type":
             await info_edit(update, context, query)
         elif action == "ui":
