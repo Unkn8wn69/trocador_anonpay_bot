@@ -10,6 +10,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import PicklePersistence, Application,ConversationHandler, MessageHandler, filters, CallbackContext, CallbackQueryHandler, CommandHandler, ConversationHandler, ContextTypes, MessageHandler, filters, CallbackQueryHandler, CallbackContext
 import os
 from utils import *
+from edit import *
 
 bot_token = os.environ.get('BOT_TOKEN_TROCADOR')
 
@@ -32,21 +33,7 @@ total_pages = 0
 options = []
 
 async def start(update, context, query=""):
-    global page
-    global total_pages
-    global options
-    with open("coins/coins.json", "r") as json_file:
-        options = json.load(json_file)
-    
-    total_pages = int(ceil(len(options) / (COLUMNS_PER_PAGE * OPTIONS_PER_PAGE)))
-
-    keyboard = generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
-
-    reply_text = "Please select a coin:"
-    try:
-        await update.message.reply_text(reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
-    except:
-        await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
 
 async def callbacks(update: Update, context: CallbackContext):
     global page
@@ -100,22 +87,15 @@ async def callbacks(update: Update, context: CallbackContext):
     elif category == "info":
         if action == "edit":
             await info_edit(update, context, query)
-
-async def info_edit(update, context, query):
-    keyboard = [
-            [
-                InlineKeyboardButton("🪙 Coin Details", callback_data="coin_edit"),
-                InlineKeyboardButton("💱 Transaction Type", callback_data="coin_done"),
-            ],
-            [
-                InlineKeyboardButton("👀 UI & Apperance", callback_data="coin_edit"),
-                InlineKeyboardButton("⚙️ Additional options", callback_data="coin_done"),
-            ],
-    ]
-
-    reply_text="What category of options would you like to edit?"
-
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+    elif category == "edit":
+        if action == "coin":
+            await info_edit(update, context, query)
+        elif action == "type":
+            await info_edit(update, context, query)
+        elif action == "ui":
+            await info_edit(update, context, query)
+        elif action == "other":
+            await info_edit(update, context, query)
 
 
 async def get_address(update, context):
