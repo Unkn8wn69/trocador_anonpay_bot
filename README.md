@@ -31,8 +31,9 @@ Coming soon!
 
 If you find this project useful, please consider donating to the following address:
 
-<img src="images/qr.png" width="150"/>
+<img src="images/qr.png" width="200"/>
 89ZYSD9nyFxZS1zrZaB9Z4giuv776AeKTMXVRWPMkZDtau7wF2DCgqc1tH9zAVszPTP9XTSnhLT4rYUhW6oP8okeS56Jbdc
+
 
 or if you want to donate to Trocador do that[here](https://trocador.app/en/about/https:/)
 
