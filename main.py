@@ -108,14 +108,21 @@ async def callbacks(update: Update, context: CallbackContext):
             else:
                 subaction = data[2]
                 if subaction == "donation":
-                    await edit_bool(update, context, query, context.user_data, )
+                    await edit_bool(update, context, query, user_info, subaction, "Would you like this anonpay to be a donation-page?", "edit_type")
         elif action == "ui":
             await info_edit(update, context, query)
         elif action == "other":
             await info_edit(update, context, query)
     elif category == "switch":
-        switch_bool(update, context, user_info, data)
+        await switch_bool(update, context, user_info, data, query)
 
+async def switch_bool(update, context, user_info, data, query):
+    if data[2] == "no":
+        user_info[data[1]] = "False"
+        await info(update, context, query)
+    else:
+        user_info[data[1]] = "True"
+        await info(update, context, query)
 
 async def get_address(update, context):
     user_data = context.user_data
@@ -138,7 +145,7 @@ async def get_memo(update, context):
     await info(update, context)
     return ConversationHandler.END
 
-async def info(update, context):
+async def info(update, context, query=""):
     user_info = context.user_data
     
     if user_info:
@@ -185,8 +192,11 @@ Link: `{generate_link(user_info)}`
                 InlineKeyboardButton("Contribute", url="https://github.com/Unkn8wn69/trocador_anonpay_bot/"),
             ],
         ]
-
-        await update.message.reply_text(info_text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
+        
+        try:
+            await update.message.reply_text(info_text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
+        except:
+            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=info_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
     else:
         await update.message.reply_text("No information available. Use /start to set your information.")
 

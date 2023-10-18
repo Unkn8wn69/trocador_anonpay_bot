@@ -44,11 +44,3 @@ def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_P
 
 def generate_link(user_info):
     return f"https://trocador.app/anonpay/?ticker_to={user_info['ticker_to']}&network_to={user_info['network_to']}&address={user_info['address']}"
-
-def switch_bool(update, context, user_info, data):
-    if data[2] == "no":
-        user_info[data[1]] = "False"
-        await info(update, context)
-    else:
-        user_info[data[1]] = "True"
-        await info(update, context)
