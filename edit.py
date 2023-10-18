@@ -139,7 +139,7 @@ async def edit_ui(update, context, query, user_info):
             [
                 InlineKeyboardButton("⬅️ Back", callback_data="info_edit"),
                 InlineKeyboardButton("📛 Name", callback_data="edit_ui_name"),
-                InlineKeyboardButton("🖹 Description", callback_data="edit_ui_description"),
+                InlineKeyboardButton("🔣 Description", callback_data="edit_ui_description"),
             ],
             [
                 InlineKeyboardButton("🔳 Button", callback_data="edit_ui_button"),
