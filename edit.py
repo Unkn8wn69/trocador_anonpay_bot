@@ -74,7 +74,7 @@ async def edit_coin_amount(update, context, query, user_info):
             ],
     ]
 
-    reply_text="What would you like to be the predefined receiving amount?"
+    reply_text="What would you like to be the predefined receiving amount? (Example: 0.2)"
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
