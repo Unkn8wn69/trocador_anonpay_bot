@@ -58,9 +58,9 @@ async def callbacks(update: Update, context: CallbackContext):
     data = query.data.split("_")
 
     category = data[0]
+    action = data[1]
 
     if category == "coin":
-        action = data[1]
         if action == "select":
             selected_coin = data[2]
             network = data[3]
@@ -97,6 +97,26 @@ async def callbacks(update: Update, context: CallbackContext):
         elif action == "done":
             await query.edit_message_text("Please enter your address:")
             return GETTING_ADDRESS
+    elif category == "info":
+        if action == "edit":
+            await info_edit(update, context, query)
+
+async def info_edit(update, context, query):
+    keyboard = [
+            [
+                InlineKeyboardButton("🪙 Coin Details", callback_data="coin_edit"),
+                InlineKeyboardButton("💱 Transaction Type", callback_data="coin_done"),
+            ],
+            [
+                InlineKeyboardButton("👀 UI & Apperance", callback_data="coin_edit"),
+                InlineKeyboardButton("⚙️ Additional options", callback_data="coin_done"),
+            ],
+    ]
+
+    reply_text="What category of options would you like to edit?"
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+
 
 async def get_address(update, context):
     user_data = context.user_data
