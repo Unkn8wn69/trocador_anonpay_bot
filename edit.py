@@ -66,3 +66,25 @@ Memo/ExtraID: `{user_info['memo'] if 'memo' in user_info else '0'}`
 """
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+async def edit_coin_amount(update, context, query, user_info):
+    keyboard = [
+            [
+                InlineKeyboardButton("❌ Cancel", callback_data="edit_coin"),
+            ],
+    ]
+
+    reply_text="What would you like to be the predefined receiving amount?"
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+async def edit_coin_memo(update, context, query, user_info):
+    keyboard = [
+            [
+                InlineKeyboardButton("❌ Cancel", callback_data="edit_coin"),
+            ],
+    ]
+
+    reply_text="What would you like to be the memo/ExtraID for the transaction?"
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))

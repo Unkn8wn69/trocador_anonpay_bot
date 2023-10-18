@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Variables
 
-GETTING_ADDRESS = range(1)
+GETTING_ADDRESS, GETTING_AMOUNT, GETTING_MEMO = range(3)
 
 OPTIONS_PER_PAGE = 5
 COLUMNS_PER_PAGE = 3
@@ -96,9 +96,11 @@ async def callbacks(update: Update, context: CallbackContext):
                 if subaction == "coin":
                     await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
                 elif subaction == "amount":
-                    print("amount")
+                    await edit_coin_amount(update, context, query, context.user_data)
+                    return GETTING_AMOUNT
                 elif subaction == "memo":
-                    print("memo")
+                    await edit_coin_memo(update, context, query, context.user_data)
+                    return GETTING_MEMO
         elif action == "type":
             await info_edit(update, context, query)
         elif action == "ui":
@@ -110,6 +112,20 @@ async def callbacks(update: Update, context: CallbackContext):
 async def get_address(update, context):
     user_data = context.user_data
     user_data['address'] = update.message.text
+
+    await info(update, context)
+    return ConversationHandler.END
+
+async def get_amount(update, context):
+    user_data = context.user_data
+    user_data['amount'] = update.message.text
+
+    await info(update, context)
+    return ConversationHandler.END
+
+async def get_memo(update, context):
+    user_data = context.user_data
+    user_data['memo'] = update.message.text
 
     await info(update, context)
     return ConversationHandler.END
@@ -166,12 +182,17 @@ Link: `{generate_link(user_info)}`
     else:
         await update.message.reply_text("No information available. Use /start to set your information.")
 
+## Handlers for replies
 address_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_address)
+amount_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_amount)
+memo_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_memo)
 
-address_conversation_handler = ConversationHandler(
+conversation_handler = ConversationHandler(
     entry_points=[CallbackQueryHandler(callbacks)],
     states={
         GETTING_ADDRESS: [address_handler],
+        GETTING_AMOUNT: [amount_handler],
+        GETTING_MEMO: [memo_handler],
     },
     fallbacks=[],
 )
@@ -181,7 +202,7 @@ def main() -> None:
     application = Application.builder().token(bot_token).build()
     
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(address_conversation_handler) 
+    application.add_handler(conversation_handler) 
     application.add_handler(CallbackQueryHandler(callbacks))
     application.add_handler(CommandHandler('info', info))
     
