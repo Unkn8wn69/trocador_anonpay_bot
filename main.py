@@ -109,6 +109,12 @@ async def callbacks(update: Update, context: CallbackContext):
                 subaction = data[2]
                 if subaction == "donation":
                     await edit_bool(update, context, query, user_info, subaction, "Would you like this anonpay to be a donation-page?", "edit_type")
+                elif subaction == "direct":
+                    await edit_bool(update, context, query, user_info, subaction, "When someone wants to pay with your receiving currency over anonpay, would you like that to be disabled?", "edit_type")
+                elif subaction == "simple":
+                    await edit_bool(update, context, query, user_info, subaction, "Would you like a simpler checkout process? (Better for users that are inexperienced with crypto)", "edit_type")
+                elif subaction == "editable":
+                    await edit_bool(update, context, query, user_info, subaction, "Would you like that the user can change the amount?", "edit_type")
         elif action == "ui":
             await info_edit(update, context, query)
         elif action == "other":
@@ -161,9 +167,9 @@ Memo/ExtraID: `{user_info['memo'] if 'memo' in user_info else '0'}`
 *Transaction Type*
 
 Donation: {user_info['donation'] if 'donation' in user_info else 'False'}
-Remove Direct-Pay: {user_info['remove_direct_pay'] if 'remove_direct_pay' in user_info else 'False'}
+Remove Direct-Pay: {user_info['direct'] if 'direct' in user_info else 'False'}
 Allow to edit amount: {user_info['editable'] if 'editable' in user_info else 'False'}
-Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else 'True'}
+Simpler checkout: {user_info['simple'] if 'simple' in user_info else 'True'}
 
 *UI & Appearance*
 
@@ -178,9 +184,9 @@ Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
 Default coin: {user_info['ticker_from'] if 'ticker_from' in user_info else 'BTC'}
 Default network: {user_info['network_from'] if 'network_from' in user_info else 'Mainnet'}
 Trocador referral: {display_if_set(user_info, 'referral')}
-Fiat equivalent: {display_if_set(user_info, 'fiat_equiv')}
+Fiat equivalent: {display_if_set(user_info, 'fiat')}
 Notification email: {display_if_set(user_info, 'email')}
-Minimum KYC score (A, B or C): {display_if_set(user_info, 'min_logpolicy')}
+Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
 Webhook: {display_if_set(user_info, 'webhook')}
 
 Link: `{generate_link(user_info)}`
