@@ -11,11 +11,12 @@ Coming soon!
 * [X] Set coin and address
 * [X] Gather Anonpay url
 * [X] Change Anonpay design
-* [ ] Change Anonpay options
+* [X] Change Anonpay options
+* [ ] Automatically validate user input e.g the receiving address
 * [ ] Get Tor & I2P links
 * [ ] Localized bot language
 * [ ] Demo bot hosting
-* [ ] Reset conversation with the `/reset` command
+* [X] Reset conversation with the `/reset` command
 
 ## Prerequisites
 
