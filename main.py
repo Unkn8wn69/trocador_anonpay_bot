@@ -89,7 +89,7 @@ async def callbacks(update: Update, context: CallbackContext):
         if action == "edit":
             await info_edit(update, context, query)
         elif action == "reset":
-            await reset_user_data(update, context)
+            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text="You can reset your data with /reset")
     elif category == "edit":
         if action == "coin":
             if len(data) < 3:
@@ -141,15 +141,17 @@ async def callbacks(update: Update, context: CallbackContext):
     elif category == "switch":
         await switch_bool(update, context, user_info, data, query)
 
-async def reset_user_data(update, context):
+async def reset_user_data(update, context, query=""):
     user_id = update.effective_user.id
-    print(context.user_data)
     if len(context.user_data) > 0:
         context.user_data.clear()
-        await update.message.reply_text("Your user data has been cleared.")
+        reply_text = "Your user data has been cleared."
+        await update.message.reply_text(reply_text)
         await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
     else:
-        await update.message.reply_text("No user data found to clear.")
+        reply_text = "No user data found to clear."
+        await update.message.reply_text(reply_text)
+        await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
 
 async def switch_bool(update, context, user_info, data, query):
     if data[2] == "no":
