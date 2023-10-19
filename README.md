@@ -13,7 +13,7 @@ Here is a preview video:
 ![preview.gif](https://s6.gifyu.com/images/S65Cs.gif)
 
 
-| <img src="images/start.png" width="200"/> | <img src="images/info.png" width="200"/> | <img src="images/options" width="200"/> | <img src="images/all_option_menus.png" width="200"/> |
+| <img src="images/start.png" width="200"/> | <img src="images/info.png" width="200"/> | <img src="images/options.png" width="200"/> | <img src="images/all_other_options.png" width="400"/> |
 | :-----------------------------------------: | :----------------------------------------: | :---------------------------------------: | :----------------------------------------------------: |
 |                   Start                   |                 Overview                 |                 Options                 |                   All option menus                   |
 
