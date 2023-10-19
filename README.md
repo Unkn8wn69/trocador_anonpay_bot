@@ -10,7 +10,7 @@ Coming soon!
 
 * [X] Set coin and address
 * [X] Gather Anonpay url
-* [ ] Change Anonpay design
+* [X] Change Anonpay design
 * [ ] Change Anonpay options
 * [ ] Get Tor & I2P links
 * [ ] Localized bot language

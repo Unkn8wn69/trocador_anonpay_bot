@@ -88,6 +88,8 @@ async def callbacks(update: Update, context: CallbackContext):
     elif category == "info":
         if action == "edit":
             await info_edit(update, context, query)
+        elif action == "reset":
+            await reset_user_data(update, context)
     elif category == "edit":
         if action == "coin":
             if len(data) < 3:
@@ -138,6 +140,16 @@ async def callbacks(update: Update, context: CallbackContext):
             await info_edit(update, context, query)
     elif category == "switch":
         await switch_bool(update, context, user_info, data, query)
+
+async def reset_user_data(update, context):
+    user_id = update.effective_user.id
+    print(context.user_data)
+    if len(context.user_data) > 0:
+        context.user_data.clear()
+        await update.message.reply_text("Your user data has been cleared.")
+        await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
+    else:
+        await update.message.reply_text("No user data found to clear.")
 
 async def switch_bool(update, context, user_info, data, query):
     if data[2] == "no":
@@ -281,6 +293,7 @@ def main() -> None:
     application = Application.builder().token(bot_token).build()
     
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("reset", reset_user_data))
     application.add_handler(conversation_handler) 
     application.add_handler(CallbackQueryHandler(callbacks))
     application.add_handler(CommandHandler('info', info))

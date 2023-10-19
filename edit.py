@@ -22,6 +22,30 @@ async def info_edit(update, context, query):
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
 
+async def edit_bool(update, context, query, user_info, variable, text, back_callback):
+    keyboard = [
+            [
+                InlineKeyboardButton("✅ Yes", callback_data=f"switch_{variable}_yes"),
+                InlineKeyboardButton("❌ No", callback_data=f"switch_{variable}_no"),
+            ],
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data=back_callback),
+            ],
+    ]
+
+    reply_text=text
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+async def edit_text(update, context, query, user_info, back_callback, text):
+    keyboard = [
+            [
+                InlineKeyboardButton("❌ Cancel", callback_data=back_callback)
+            ],
+    ]
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
 async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query=""):
     global page
     global total_pages
@@ -117,21 +141,6 @@ Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else '
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
-async def edit_bool(update, context, query, user_info, variable, text, back_callback):
-    keyboard = [
-            [
-                InlineKeyboardButton("✅ Yes", callback_data=f"switch_{variable}_yes"),
-                InlineKeyboardButton("❌ No", callback_data=f"switch_{variable}_no"),
-            ],
-            [
-                InlineKeyboardButton("⬅️ Back", callback_data=back_callback),
-            ],
-    ]
-
-    reply_text=text
-
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
-
 # Editing the UI & Apperance
 
 async def edit_ui(update, context, query, user_info):
@@ -161,12 +170,3 @@ Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
 """
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
-
-async def edit_text(update, context, query, user_info, back_callback, text):
-    keyboard = [
-            [
-                InlineKeyboardButton("❌ Cancel", callback_data=back_callback)
-            ],
-    ]
-
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
