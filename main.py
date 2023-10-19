@@ -102,13 +102,13 @@ async def callbacks(update: Update, context: CallbackContext):
                 await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "first":
             page = 0
-            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
+            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(geneBOT_TOKEN_TROCADORrate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "last":
             page = total_pages - 1
             await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "edit":
             await update.callback_query.answer()
-            await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)
+            await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type, query)
         elif action == "done":
             if (type == "coin"):
                 await query.edit_message_text("Please enter your address:")
