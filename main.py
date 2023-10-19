@@ -11,6 +11,7 @@ from telegram.ext import PicklePersistence, Application,ConversationHandler, Mes
 import os
 from utils import *
 from edit import *
+from strings import *
 
 bot_token = os.environ.get('BOT_TOKEN_TROCADOR')
 
@@ -119,6 +120,8 @@ async def callbacks(update: Update, context: CallbackContext):
             await info_edit(update, context, query)
         elif action == "reset":
             await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text="You can reset your data with /reset")
+        elif action == "show":
+            await info(update, context, query)
     elif category == "edit":
         if action == "delete":
             var = data[2]
@@ -222,38 +225,13 @@ async def info(update, context, query=""):
     
     if user_info:
         info_text = f"""
-*Coin Details*
+{text_coin_details(user_info)}
 
-Coin: {display_if_set(user_info, 'ticker_to')}
-Network: {display_if_set(user_info, 'network_to')}
-Address: `{display_if_set(user_info, 'address')}`
-Amount: `{user_info['amount'] if 'amount' in user_info else '0.1'}`
-Memo/ExtraID: `{user_info['memo'] if 'memo' in user_info else '0'}`
+{text_transaction_type(user_info)}
 
-*Transaction Type*
+{text_ui(user_info)}
 
-Donation: {user_info['donation'] if 'donation' in user_info else 'False'}
-Remove Direct-Pay: {user_info['direct'] if 'direct' in user_info else 'False'}
-Allow to edit amount: {user_info['editable'] if 'editable' in user_info else 'False'}
-Simpler checkout: {user_info['simple'] if 'simple' in user_info else 'True'}
-
-*UI & Appearance*
-
-Name: {display_if_set(user_info, 'name')}
-Description: {display_if_set(user_info, 'description')}
-Button color: `{user_info['buttonbgcolor'] if 'buttonbgcolor' in user_info else 'ff3c00'}`
-Text color: `{user_info['textcolor'] if 'textcolor' in user_info else 'fffff'}`
-Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
-
-*Additional*
-
-Default coin: {user_info['ticker_from'] if 'ticker_from' in user_info else 'BTC'}
-Default network: {user_info['network_from'] if 'network_from' in user_info else 'Mainnet'}
-Trocador referral: {display_if_set(user_info, 'referral')}
-Fiat equivalent: {display_if_set(user_info, 'fiat')}
-Notification email: {display_if_set(user_info, 'email')}
-Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
-Webhook: {display_if_set(user_info, 'webhook')}
+{text_other(user_info)}
 
 *Clearnet Link*: `{generate_link("https://trocador.app/anonpay/", user_info)}`
 *Onion Link*: `{generate_link("http://trocadorfyhlu27aefre5u7zri66gudtzdyelymftvr4yjwcxhfaqsid.onion/anonpay/", user_info)}`

@@ -5,6 +5,7 @@ from math import ceil
 from typing import Dict
 from main import page, total_pages, options
 from utils import generate_buttons, display_if_set
+from strings import *
 
 async def info_edit(update, context, query):
     keyboard = [
@@ -16,6 +17,9 @@ async def info_edit(update, context, query):
                 InlineKeyboardButton("👀 UI & Apperance", callback_data="edit_ui"),
                 InlineKeyboardButton("⚙️ Additional options", callback_data="edit_other"),
             ],
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data="info_show"),
+            ]
     ]
 
     reply_text="What category of options would you like to edit?"
@@ -73,13 +77,7 @@ async def edit_coin_details(update, context, query, user_info):
     ]
 
     reply_text=f"""
-*Coin Details*
-
-Coin: {display_if_set(user_info, 'ticker_to')}
-Network: {display_if_set(user_info, 'network_to')}
-Address: `{display_if_set(user_info, 'address')}`
-Amount: `{user_info['amount'] if 'amount' in user_info else '0.1'}`
-Memo/ExtraID: `{user_info['memo'] if 'memo' in user_info else '0'}`
+{text_coin_details(user_info)}
 
 *What option would you like to edit?*
 """
@@ -102,12 +100,7 @@ async def edit_type(update, context, query, user_info):
     ]
 
     reply_text=f"""
-*Transaction Type*
-
-Donation: {user_info['donation'] if 'donation' in user_info else 'False'}
-Remove Direct-Pay: {user_info['remove_direct_pay'] if 'remove_direct_pay' in user_info else 'False'}
-Allow to edit amount: {user_info['editable'] if 'editable' in user_info else 'False'}
-Simpler checkout: {user_info['simple_mode'] if 'simple_mode' in user_info else 'True'}
+{text_transaction_type(user_info)}
 
 *What option would you like to edit?*
 """
@@ -131,13 +124,7 @@ async def edit_ui(update, context, query, user_info):
     ]
 
     reply_text=f"""
-*UI & Appearance*
-
-Name: {display_if_set(user_info, 'name')}
-Description: {display_if_set(user_info, 'description')}
-Button color: `{user_info['buttonbgcolor'] if 'buttonbgcolor' in user_info else 'ff3c00'}`
-Text color: `{user_info['textcolor'] if 'textcolor' in user_info else 'fffff'}`
-Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
+{text_ui(user_info)}
 
 *What option would you like to edit?*
 """
@@ -164,15 +151,7 @@ async def edit_other(update, context, query, user_info):
     ]
 
     reply_text=f"""
-*Additional options*
-
-Default coin: {user_info['ticker_from'] if 'ticker_from' in user_info else 'BTC'}
-Default network: {user_info['network_from'] if 'network_from' in user_info else 'Mainnet'}
-Trocador referral: {display_if_set(user_info, 'referral')}
-Fiat equivalent: {display_if_set(user_info, 'fiat')}
-Notification email: {display_if_set(user_info, 'email')}
-Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
-Webhook: {display_if_set(user_info, 'webhook')}
+{text_other(user_info)}
 
 *What option would you like to edit?*
 """
