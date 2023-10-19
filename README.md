@@ -13,7 +13,7 @@ Coming soon!
 * [X] Change Anonpay design
 * [X] Change Anonpay options
 * [ ] Automatically validate user input e.g the receiving address
-* [ ] Get Tor & I2P links
+* [X] Get Tor & I2P links
 * [ ] Localized bot language
 * [ ] Demo bot hosting
 * [ ] Save and Load configurations
