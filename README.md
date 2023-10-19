@@ -20,13 +20,13 @@ The bot is currently availiable on Telegram at [@trocador_anonpay_bot](https://t
 * [X] Gather Anonpay url
 * [X] Change Anonpay design
 * [X] Change Anonpay options
-* [ ] Automatically validate user input e.g the receiving address
 * [X] Get Tor & I2P links
-* [ ] Localized bot language
 * [ ] Demo bot hosting
+* [ ] Reset conversation with the `/reset` command
+* [ ] Automatically validate user input e.g the receiving address
+* [ ] Localized bot language
 * [ ] Save and Load configurations
 * [ ] Get notifications for ongoing tansfers via the bot
-* [X] Reset conversation with the `/reset` command
 
 ## Prerequisites
 
