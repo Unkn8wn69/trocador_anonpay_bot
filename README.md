@@ -21,8 +21,8 @@ The bot is currently availiable on Telegram at [@trocador_anonpay_bot](https://t
 * [X] Change Anonpay design
 * [X] Change Anonpay options
 * [X] Get Tor & I2P links
-* [ ] Demo bot hosting
-* [ ] Reset conversation with the `/reset` command
+* [X] Demo bot hosting
+* [X] Reset conversation with the `/reset` command
 * [ ] Automatically validate user input e.g the receiving address
 * [ ] Localized bot language
 * [ ] Save and Load configurations
