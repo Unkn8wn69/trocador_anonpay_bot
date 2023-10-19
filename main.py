@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Variables
 
-GETTING_ADDRESS, GETTING_AMOUNT, GETTING_MEMO, GETTING_NAME, GETTING_DESCRIPTION, GETTING_BUTTONBGCOLOR, GETTING_TEXTCOLOR = range(7)
+GETTING_ADDRESS, GETTING_AMOUNT, GETTING_MEMO, GETTING_NAME, GETTING_DESCRIPTION, GETTING_BUTTONBGCOLOR, GETTING_TEXTCOLOR, GETTING_REFERRAL, GETTING_FIAT, GETTING_EMAIL, GETTING_LOGPOLICY, GETTING_WEBHOOK = range(12)
 
 OPTIONS_PER_PAGE = 5
 COLUMNS_PER_PAGE = 3
@@ -137,7 +137,27 @@ async def callbacks(update: Update, context: CallbackContext):
                 elif subaction == "bgcolor":
                     await edit_bool(update, context, query, user_info, "bgcolor", "Do you want to give the page a gray background, otherwise it'll be transparent/white?", "edit_ui")
         elif action == "other":
-            await info_edit(update, context, query)
+            if len(data) < 3:
+                await edit_other(update, context, query, user_info)
+            else:
+                subaction = data[2]
+                if subaction == "coin":
+                    print("preselected coin")
+                elif subaction == "referral":
+                    await edit_text(update, context, query, user_info, "edit_other", "Please send your Trocador referral code, if you dont have one get it [here](https://trocador.app/en/affiliate/)")
+                    return GETTING_REFERRAL
+                elif subaction == "fiat":
+                    await edit_text(update, context, query, user_info, "edit_other", "If you want the amount to be in a fiat equivalent provide a valid currency abbreviation, (example: USD for US-Dollar)")
+                    return GETTING_FIAT
+                elif subaction == "email":
+                    await edit_text(update, context, query, user_info, "edit_other", "Enter an email in which you will receive confirmation when the transaction is completed")
+                    return GETTING_EMAIL
+                elif subaction == "logpolicy":
+                    await edit_text(update, context, query, user_info, "edit_other", "If you want to use only on exchanges with a minimum of A, B, C or D log policy rating, please provide this parameter. More info [here](https://trocador.app/en/) under `Is it really private? Isn't KYC required?`")
+                    return GETTING_LOGPOLICY
+                elif subaction == "webhook":
+                    await edit_text(update, context, query, user_info, "edit_other", "If you provide an URL now, every time the status of the transaction changes, you will receive on this URL a POST request sending you the transaction data; this avoids having to call so many times our server to check the transaction status")
+                    return GETTING_WEBHOOK
     elif category == "switch":
         await switch_bool(update, context, user_info, data, query)
 
@@ -236,6 +256,11 @@ conversation_handler = ConversationHandler(
         GETTING_DESCRIPTION: [get_message_handler("description")],
         GETTING_BUTTONBGCOLOR: [get_message_handler("buttonbgcolor")],
         GETTING_TEXTCOLOR: [get_message_handler("textcolor")],
+        GETTING_REFERRAL: [get_message_handler("referral")],
+        GETTING_FIAT: [get_message_handler("fiat")],
+        GETTING_EMAIL: [get_message_handler("email")],
+        GETTING_LOGPOLICY: [get_message_handler("logpolicy")],
+        GETTING_WEBHOOK: [get_message_handler("webhook")],
     },
     fallbacks=[],
 )

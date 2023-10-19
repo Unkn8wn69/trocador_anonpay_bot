@@ -170,3 +170,38 @@ Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
 """
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+## Additional options
+
+async def edit_other(update, context, query, user_info):
+    keyboard = [
+            [
+                InlineKeyboardButton("⬅️ Back", callback_data="info_edit"),
+                InlineKeyboardButton("🪙 Preselected", callback_data="edit_other_coin"),
+                InlineKeyboardButton("🤝 Referral", callback_data="edit_other_referral"),
+            ],
+            [
+                InlineKeyboardButton("💲 Fiat equivalent", callback_data="edit_other_fiat"),
+                InlineKeyboardButton("📧 Notification Email", callback_data="edit_other_email"),
+            ],
+            [
+                InlineKeyboardButton("🥇 Minimum KYC-Score", callback_data="edit_other_logpolicy"),
+                InlineKeyboardButton("🌐 Webhook", callback_data="edit_other_webhook"),
+            ],
+    ]
+
+    reply_text=f"""
+*Additional options*
+
+Default coin: {user_info['ticker_from'] if 'ticker_from' in user_info else 'BTC'}
+Default network: {user_info['network_from'] if 'network_from' in user_info else 'Mainnet'}
+Trocador referral: {display_if_set(user_info, 'referral')}
+Fiat equivalent: {display_if_set(user_info, 'fiat')}
+Notification email: {display_if_set(user_info, 'email')}
+Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
+Webhook: {display_if_set(user_info, 'webhook')}
+
+*What option would you like to edit?*
+"""
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
