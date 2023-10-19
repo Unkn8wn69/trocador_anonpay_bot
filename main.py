@@ -206,11 +206,11 @@ async def reset_user_data(update, context, query=""):
         context.user_data.clear()
         reply_text = "Your user data has been cleared."
         await update.message.reply_text(reply_text)
-        await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
+        await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "coin")
     else:
         reply_text = "No user data found to clear."
         await update.message.reply_text(reply_text)
-        await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
+        await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "coin")
 
 async def switch_bool(update, context, user_info, data, query):
     if data[2] == "no":
