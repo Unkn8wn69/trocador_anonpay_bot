@@ -17,7 +17,7 @@ def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_P
         row = []
         for option in page_options[i:i + COLUMNS_PER_PAGE]:
             name = option["name"]
-            short_name = option["short"]
+            short_name = option["short"].lower()
             network = option["network"]
             button = InlineKeyboardButton(text=name, callback_data=f"coin_select_{short_name}_{network}")
             row.append(button)
@@ -42,7 +42,36 @@ def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_P
 
     return keyboard
 
-def generate_link(user_info):
+def generate_link(base_url, params_dict):
+    if 'ticker_to' in params_dict and 'network_to' in params_dict and 'address' in params_dict:
+        if not base_url:
+            raise ValueError("Base URL is required")
+        
+        if not params_dict:
+            return base_url
+
+        exempt_values = {"remove_direct_pay": "False", "simple_mode": "False", "editable": "False"}
+        rename_dict = {"direct": "remove_direct_pay", "fiat": "fiat_equiv", "logpolicy": "min_logpolicy", "simple": "simple_mode", "referral": "ref"}
+
+        if rename_dict is not None:
+            for old_param, new_param in rename_dict.items():
+                if old_param in params_dict:
+                    params_dict[new_param] = params_dict.pop(old_param)
+
+
+        param_list = [f"{key}={value}" for key, value in params_dict.items() if key not in exempt_values or params_dict[key] != exempt_values[key]]
+        
+        query_string = "&".join(param_list)
+
+        if '?' in base_url:
+            return f"{base_url}&{query_string}"
+        else:
+            return f"{base_url}?{query_string}"
+    else:
+        return "You have to set a coin and address"
+
+
+def generate_link_old(user_info):
     if 'ticker_to' in user_info and 'network_to' in user_info and 'address' in user_info:
         return f"https://trocador.app/anonpay/?ticker_to={user_info['ticker_to']}&network_to={user_info['network_to']}&address={user_info['address']}"
     else:

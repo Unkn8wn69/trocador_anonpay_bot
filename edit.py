@@ -46,6 +46,16 @@ async def edit_text(update, context, query, user_info, back_callback, text):
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
+async def can_only_edit_when(update, context, query, text, text_edit, back_callback, edit_callback):
+    keyboard = [
+            [
+                InlineKeyboardButton("🆗 Okay", callback_data=back_callback),
+                InlineKeyboardButton(text_edit, callback_data=edit_callback)
+            ],
+    ]
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
 async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query=""):
     global page
     global total_pages

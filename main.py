@@ -116,7 +116,10 @@ async def callbacks(update: Update, context: CallbackContext):
                 elif subaction == "simple":
                     await edit_bool(update, context, query, user_info, subaction, "Would you like a simpler checkout process? (Better for users that are inexperienced with crypto)", "edit_type")
                 elif subaction == "editable":
-                    await edit_bool(update, context, query, user_info, subaction, "Would you like that the user can change the amount?", "edit_type")
+                    if ("donation" not in user_info or user_info["donation"] != "True"):
+                        await edit_bool(update, context, query, user_info, subaction, "Would you like that the user can change the amount?", "edit_type")
+                    else:
+                        await can_only_edit_when(update, context, query, "You can only change this when Donation is disabled", "❌🫶 Disable Donation", "edit_type", "edit_type_donation")
         elif action == "ui":
             if len(data) < 3:
                 await edit_ui(update, context, query, context.user_data)
@@ -219,7 +222,7 @@ Notification email: {display_if_set(user_info, 'email')}
 Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
 Webhook: {display_if_set(user_info, 'webhook')}
 
-Link: `{generate_link(user_info)}`
+Link: `{generate_link("https://trocador.app/anonpay/", user_info)}`
 """
         keyboard = [
             [
