@@ -120,8 +120,20 @@ async def callbacks(update: Update, context: CallbackContext):
                 await edit_ui(update, context, query, context.user_data)
             else:
                 subaction = data[2]
-                if subaction == "donation":
-                    await edit_bool(update, context, query, user_info, subaction, "Would you like this anonpay to be a donation-page?", "edit_type")
+                if subaction == "name":
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the name you want to appear on the widget. Special characters must be url encoded ( 'A B' is 'A%20B')")
+                    return GETTING_NAME
+                elif subaction == "description":
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send a description to appear in the checkout screen for the payment/donation. Special characters must be url encoded ( 'A B' is 'A%20B')")
+                    return GETTING_DESCRIPTION
+                elif subaction == "button":
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the color of the button, should be in hex format without the '#'. E.g. ff0000 for red. You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)")
+                    return GETTING_BUTTONBGCOLOR
+                elif subaction == "text":
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the color of the text, should be in hex format without the '#'. E.g. ff0000 for red. You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)")
+                    return GETTING_TEXTCOLOR
+                elif subaction == "bgcolor":
+                    await edit_bool(update, context, query, user_info, "bgcolor", "Do you want to give the page a gray background, otherwise it'll be transparent/white?", "edit_ui")
         elif action == "other":
             await info_edit(update, context, query)
     elif category == "switch":
@@ -256,6 +268,10 @@ conversation_handler = ConversationHandler(
         GETTING_ADDRESS: [address_handler],
         GETTING_AMOUNT: [amount_handler],
         GETTING_MEMO: [memo_handler],
+        GETTING_NAME: [name_handler],
+        GETTING_DESCRIPTION: [description_handler],
+        GETTING_BUTTONBGCOLOR: [buttonbgcolor_handler],
+        GETTING_TEXTCOLOR: [textcolor_handler],
     },
     fallbacks=[],
 )

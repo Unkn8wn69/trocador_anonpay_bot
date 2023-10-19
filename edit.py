@@ -132,7 +132,7 @@ async def edit_bool(update, context, query, user_info, variable, text, back_call
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
-# Editing the Transaction type
+# Editing the UI & Apperance
 
 async def edit_ui(update, context, query, user_info):
     keyboard = [
@@ -161,3 +161,12 @@ Widget Background: {user_info['bgcolor'] if 'bgcolor' in user_info else 'False'}
 """
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
+async def edit_text(update, context, query, user_info, back_callback, text):
+    keyboard = [
+            [
+                InlineKeyboardButton("❌ Cancel", callback_data=back_callback)
+            ],
+    ]
+
+    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
