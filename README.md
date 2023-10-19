@@ -1,4 +1,4 @@
-# Trocador anonpay bot
+# Unoffical Trocador Anonpay bot
 
 This is a telegram bot for the generation of trocador anonpay urls
 
