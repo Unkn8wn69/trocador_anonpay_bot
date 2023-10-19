@@ -56,22 +56,6 @@ async def can_only_edit_when(update, context, query, text, text_edit, back_callb
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
-async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query=""):
-    global page
-    global total_pages
-    global options
-    with open("coins/coins.json", "r") as json_file:
-        options = json.load(json_file)
-    
-    total_pages = int(ceil(len(options) / (COLUMNS_PER_PAGE * OPTIONS_PER_PAGE)))
-
-    keyboard = generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)
-
-    reply_text = "Please select a coin:"
-    try:
-        await update.message.reply_text(reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
-    except:
-        await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
 
 # Editing questions for coin details
 

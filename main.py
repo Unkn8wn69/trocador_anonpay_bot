@@ -32,8 +32,29 @@ page = 0
 total_pages = 0
 options = []
 
-async def start(update, context, query=""):
-    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
+
+async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type, query=""):
+    global page
+    global total_pages
+    global options
+    with open("coins/coins.json", "r") as json_file:
+        options = json.load(json_file)
+    
+    total_pages = int(ceil(len(options) / (COLUMNS_PER_PAGE * OPTIONS_PER_PAGE)))
+
+    keyboard = generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)
+
+    if (type == "coin"):
+        reply_text = "Please select a coin:"
+    else:
+        reply_text = "Please select a coin that should be preselected for the user:"
+    try:
+        await update.message.reply_text(reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+    except:
+        await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+
+async def start(update, context):
+    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "coin")
 
 async def callbacks(update: Update, context: CallbackContext):
     global page
@@ -49,17 +70,22 @@ async def callbacks(update: Update, context: CallbackContext):
     user_info = context.user_data
 
     if category == "coin":
+        type = data[2]
         if action == "select":
-            selected_coin = data[2]
-            network = data[3]
+            selected_coin = data[3]
+            network = data[4]
 
-            context.user_data['ticker_to'] = selected_coin
-            context.user_data['network_to'] = network
+            if (type == "coin"):
+                context.user_data['ticker_to'] = selected_coin
+                context.user_data['network_to'] = network
+            else:
+                context.user_data['ticker_from'] = selected_coin
+                context.user_data['network_from'] = network
 
             keyboard = [
             [
-                InlineKeyboardButton("Edit", callback_data="coin_edit"),
-                InlineKeyboardButton("Next", callback_data="coin_done"),
+                InlineKeyboardButton("Edit", callback_data=f"coin_edit_{type}"),
+                InlineKeyboardButton("Next", callback_data=f"coin_done_{type}"),
             ],
             ]
 
@@ -68,23 +94,26 @@ async def callbacks(update: Update, context: CallbackContext):
         elif action == "next":
             if page < total_pages - 1:
                 page += 1
-                await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+                await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "prev":
             if page >= 1:
                 page -= 1
-                await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+                await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "first":
             page = 0
-            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "last":
             page = total_pages - 1
-            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE)))
+            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "edit":
             await update.callback_query.answer()
-            await start(update, context, query)
+            await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)
         elif action == "done":
-            await query.edit_message_text("Please enter your address:")
-            return GETTING_ADDRESS
+            if (type == "coin"):
+                await query.edit_message_text("Please enter your address:")
+                return GETTING_ADDRESS
+            else:
+                await info(update, context, query)
     elif category == "info":
         if action == "edit":
             await info_edit(update, context, query)
@@ -145,7 +174,7 @@ async def callbacks(update: Update, context: CallbackContext):
             else:
                 subaction = data[2]
                 if subaction == "coin":
-                    print("preselected coin")
+                    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "preselected", query)
                 elif subaction == "referral":
                     await edit_text(update, context, query, user_info, "edit_other", "Please send your Trocador referral code, if you dont have one get it [here](https://trocador.app/en/affiliate/)")
                     return GETTING_REFERRAL

@@ -7,7 +7,7 @@ from telegram.ext import PicklePersistence, Application,ConversationHandler, Mes
 def display_if_set(user_info, variable):
     return user_info[variable] if variable in user_info else 'none'
 
-def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE):
+def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type):
     start_index = page * COLUMNS_PER_PAGE * OPTIONS_PER_PAGE
     end_index = (page + 1) * COLUMNS_PER_PAGE * OPTIONS_PER_PAGE
     page_options = options[start_index:end_index]
@@ -19,23 +19,23 @@ def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_P
             name = option["name"]
             short_name = option["short"].lower()
             network = option["network"]
-            button = InlineKeyboardButton(text=name, callback_data=f"coin_select_{short_name}_{network}")
+            button = InlineKeyboardButton(text=name, callback_data=f"coin_select_{type}_{short_name}_{network}")
             row.append(button)
         keyboard.append(row)
 
     if page >= 1:
-        left_button = InlineKeyboardButton(text="⬅️ Previous", callback_data=f"coin_prev_{page}")
+        left_button = InlineKeyboardButton(text="⬅️ Previous", callback_data=f"coin_prev_{type}_{page}")
     else:
-        left_button = InlineKeyboardButton(text="🔚 Last", callback_data=f"coin_last")
+        left_button = InlineKeyboardButton(text="🔚 Last", callback_data=f"coin_last_{type}")
 
     if page + 1 < total_pages:
-        right_button = InlineKeyboardButton(text="Next ➡️", callback_data=f"coin_next_{page}")
+        right_button = InlineKeyboardButton(text="Next ➡️", callback_data=f"coin_next_{type}_{page}")
     else:
-        right_button = InlineKeyboardButton(text="1️⃣ First", callback_data=f"coin_first")
+        right_button = InlineKeyboardButton(text="1️⃣ First", callback_data=f"coin_first_{type}")
 
     page_buttons = [
         left_button,
-        InlineKeyboardButton(text=f"📋 {page + 1}/{total_pages}", callback_data=f"coin_prev_{page}"),
+        InlineKeyboardButton(text=f"📋 {page + 1}/{total_pages}", callback_data=f"coin_prev_{type}{page}"),
         right_button
     ]
     keyboard.append(page_buttons)
