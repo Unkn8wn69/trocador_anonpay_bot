@@ -6,7 +6,7 @@ This is a telegram bot for the generation of trocador anonpay urls
 
 [Preview Video](https://streamable.com/yydnm1)
 
-The bot is currently availiable on Telegram at [@trocador_anonpay_bot](https://t.me/trocador_anonpay_bot)
+The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://t.me/unoffical_anonpay_bot)
 
 ## Screenshots
 
