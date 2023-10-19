@@ -120,7 +120,11 @@ async def callbacks(update: Update, context: CallbackContext):
         elif action == "reset":
             await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text="You can reset your data with /reset")
     elif category == "edit":
-        if action == "coin":
+        if action == "delete":
+            var = data[2]
+            del user_info[var]
+            await info(update, context, query)
+        elif action == "coin":
             if len(data) < 3:
                 await edit_coin_details(update, context, query, context.user_data)
             else:
@@ -128,10 +132,10 @@ async def callbacks(update: Update, context: CallbackContext):
                 if subaction == "coin":
                     await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
                 elif subaction == "amount":
-                    await edit_text(update, context, query, user_info, "edit_coin", "What would you like to be the predefined receiving amount? (Example: 0.2)")
+                    await edit_text(update, context, query, user_info, "edit_coin", "What would you like to be the predefined receiving amount? (Example: 0.2)", "amount")
                     return GETTING_AMOUNT
                 elif subaction == "memo":
-                    await edit_text(update, context, query, user_info, "edit_coin", "What would you like to be the memo/ExtraID for the transaction?")
+                    await edit_text(update, context, query, user_info, "edit_coin", "What would you like to be the memo/ExtraID for the transaction?","memo")
                     return GETTING_MEMO
         elif action == "type":
             if len(data) < 3:
@@ -155,16 +159,16 @@ async def callbacks(update: Update, context: CallbackContext):
             else:
                 subaction = data[2]
                 if subaction == "name":
-                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the name you want to appear on the widget. Special characters must be url encoded ( 'A B' is 'A%20B')")
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the name you want to appear on the widget. Special characters must be url encoded ( 'A B' is 'A%20B')", "name")
                     return GETTING_NAME
                 elif subaction == "description":
-                    await edit_text(update, context, query, user_info, "edit_ui", "Please send a description to appear in the checkout screen for the payment/donation. Special characters must be url encoded ( 'A B' is 'A%20B')")
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send a description to appear in the checkout screen for the payment/donation. Special characters must be url encoded ( 'A B' is 'A%20B')", "description")
                     return GETTING_DESCRIPTION
                 elif subaction == "button":
-                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the color of the button, should be in hex format without the '#'. E.g. ff0000 for red. You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)")
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the color of the button, should be in hex format without the '#'. E.g. ff0000 for red. You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)", "buttonbgcolor")
                     return GETTING_BUTTONBGCOLOR
                 elif subaction == "text":
-                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the color of the text, should be in hex format without the '#'. E.g. ff0000 for red. You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)")
+                    await edit_text(update, context, query, user_info, "edit_ui", "Please send the color of the text, should be in hex format without the '#'. E.g. ff0000 for red. You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)", "textcolor")
                     return GETTING_TEXTCOLOR
                 elif subaction == "bgcolor":
                     await edit_bool(update, context, query, user_info, "bgcolor", "Do you want to give the page a gray background, otherwise it'll be transparent/white?", "edit_ui")
@@ -176,19 +180,19 @@ async def callbacks(update: Update, context: CallbackContext):
                 if subaction == "coin":
                     await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "preselected", query)
                 elif subaction == "referral":
-                    await edit_text(update, context, query, user_info, "edit_other", "Please send your Trocador referral code, if you dont have one get it [here](https://trocador.app/en/affiliate/)")
+                    await edit_text(update, context, query, user_info, "edit_other", "Please send your Trocador referral code, if you dont have one get it [here](https://trocador.app/en/affiliate/)", "referral")
                     return GETTING_REFERRAL
                 elif subaction == "fiat":
-                    await edit_text(update, context, query, user_info, "edit_other", "If you want the amount to be in a fiat equivalent provide a valid currency abbreviation, (example: USD for US-Dollar)")
+                    await edit_text(update, context, query, user_info, "edit_other", "If you want the amount to be in a fiat equivalent provide a valid currency abbreviation, (example: USD for US-Dollar)", "fiat")
                     return GETTING_FIAT
                 elif subaction == "email":
-                    await edit_text(update, context, query, user_info, "edit_other", "Enter an email in which you will receive confirmation when the transaction is completed")
+                    await edit_text(update, context, query, user_info, "edit_other", "Enter an email in which you will receive confirmation when the transaction is completed", "email")
                     return GETTING_EMAIL
                 elif subaction == "logpolicy":
-                    await edit_text(update, context, query, user_info, "edit_other", "If you want to use only on exchanges with a minimum of A, B, C or D log policy rating, please provide this parameter. More info [here](https://trocador.app/en/) under `Is it really private? Isn't KYC required?`")
+                    await edit_text(update, context, query, user_info, "edit_other", "If you want to use only on exchanges with a minimum of A, B, C or D log policy rating, please provide this parameter. More info [here](https://trocador.app/en/) under `Is it really private? Isn't KYC required?`", "logpolicy")
                     return GETTING_LOGPOLICY
                 elif subaction == "webhook":
-                    await edit_text(update, context, query, user_info, "edit_other", "If you provide an URL now, every time the status of the transaction changes, you will receive on this URL a POST request sending you the transaction data; this avoids having to call so many times our server to check the transaction status")
+                    await edit_text(update, context, query, user_info, "edit_other", "If you provide an URL now, every time the status of the transaction changes, you will receive on this URL a POST request sending you the transaction data; this avoids having to call so many times our server to check the transaction status", "webhook")
                     return GETTING_WEBHOOK
     elif category == "switch":
         await switch_bool(update, context, user_info, data, query)

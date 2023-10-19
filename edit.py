@@ -37,10 +37,11 @@ async def edit_bool(update, context, query, user_info, variable, text, back_call
 
     await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
-async def edit_text(update, context, query, user_info, back_callback, text):
+async def edit_text(update, context, query, user_info, back_callback, text, var):
     keyboard = [
             [
-                InlineKeyboardButton("❌ Cancel", callback_data=back_callback)
+                InlineKeyboardButton("❌ Cancel", callback_data=back_callback),
+                InlineKeyboardButton("🗑️ Delete", callback_data=f"edit_delete_{var}")
             ],
     ]
 
