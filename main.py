@@ -128,10 +128,10 @@ async def callbacks(update: Update, context: CallbackContext):
                 if subaction == "coin":
                     await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
                 elif subaction == "amount":
-                    await edit_coin_amount(update, context, query, context.user_data)
+                    await edit_text(update, context, query, user_info, "edit_coin", "What would you like to be the predefined receiving amount? (Example: 0.2)")
                     return GETTING_AMOUNT
                 elif subaction == "memo":
-                    await edit_coin_memo(update, context, query, context.user_data)
+                    await edit_text(update, context, query, user_info, "edit_coin", "What would you like to be the memo/ExtraID for the transaction?")
                     return GETTING_MEMO
         elif action == "type":
             if len(data) < 3:
