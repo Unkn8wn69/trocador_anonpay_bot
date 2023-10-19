@@ -8,10 +8,9 @@ The bot is currently availiable on Telegram at [@trocador_anonpay_bot](https://t
 
 ## Screenshots
 
-Here is a preview video:
+Here is a preview video (Click on the link if github doesnt load it):
 
-![preview.gif](https://s6.gifyu.com/images/S65Cs.gif)
-
+[preview.gif](https://s6.gifyu.com/images/S65Cs.gif)
 
 | <img src="images/start.png" width="200"/> | <img src="images/info.png" width="200"/> | <img src="images/options.png" width="200"/> | <img src="images/all_other_options.png" width="400"/> |
 | :-----------------------------------------: | :----------------------------------------: | :---------------------------------------: | :----------------------------------------------------: |
