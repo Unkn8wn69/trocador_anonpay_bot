@@ -4,7 +4,18 @@ This is a telegram bot for the generation of trocador anonpay urls
 
 ## Demo
 
-Coming soon!
+The bot is currently availiable on Telegram at [@trocador_anonpay_bot](https://t.me/trocador_anonpay_bot)
+
+## Screenshots
+
+Here is a preview video:
+
+![preview.gif](https://s6.gifyu.com/images/S65Cs.gif)
+
+
+| <img src="images/start.png" width="200"/> | <img src="images/info.png" width="200"/> | <img src="images/options" width="200"/> | <img src="images/all_option_menus.png" width="200"/> |
+| :-----------------------------------------: | :----------------------------------------: | :---------------------------------------: | :----------------------------------------------------: |
+|                   Start                   |                 Overview                 |                 Options                 |                   All option menus                   |
 
 ## Features
 

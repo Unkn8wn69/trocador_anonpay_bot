@@ -234,6 +234,7 @@ async def info(update, context, query=""):
 {text_other(user_info)}
 
 *Clearnet Link*: `{generate_link("https://trocador.app/anonpay/", user_info)}`
+
 *Onion Link*: `{generate_link("http://trocadorfyhlu27aefre5u7zri66gudtzdyelymftvr4yjwcxhfaqsid.onion/anonpay/", user_info)}`
 """
         keyboard = [
