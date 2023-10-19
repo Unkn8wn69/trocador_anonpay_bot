@@ -222,7 +222,8 @@ Notification email: {display_if_set(user_info, 'email')}
 Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
 Webhook: {display_if_set(user_info, 'webhook')}
 
-Link: `{generate_link("https://trocador.app/anonpay/", user_info)}`
+*Clearnet Link*: `{generate_link("https://trocador.app/anonpay/", user_info)}`
+*Onion Link*: `{generate_link("http://trocadorfyhlu27aefre5u7zri66gudtzdyelymftvr4yjwcxhfaqsid.onion/anonpay/", user_info)}`
 """
         keyboard = [
             [

@@ -16,6 +16,8 @@ Coming soon!
 * [ ] Get Tor & I2P links
 * [ ] Localized bot language
 * [ ] Demo bot hosting
+* [ ] Save and Load configurations
+* [ ] Get notifications for ongoing tansfers via the bot
 * [X] Reset conversation with the `/reset` command
 
 ## Prerequisites
