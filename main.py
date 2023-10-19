@@ -161,55 +161,6 @@ async def switch_bool(update, context, user_info, data, query):
         user_info[data[1]] = "True"
         await info(update, context, query)
 
-async def get_address(update, context):
-    user_data = context.user_data
-    user_data['address'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
-async def get_amount(update, context):
-    user_data = context.user_data
-    user_data['amount'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
-async def get_memo(update, context):
-    user_data = context.user_data
-    user_data['memo'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
-async def get_name(update, context):
-    user_data = context.user_data
-    user_data['name'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
-async def get_description(update, context):
-    user_data = context.user_data
-    user_data['description'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
-async def get_buttonbgcolor(update, context):
-    user_data = context.user_data
-    user_data['buttonbgcolor'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
-async def get_textcolor(update, context):
-    user_data = context.user_data
-    user_data['textcolor'] = update.message.text
-
-    await info(update, context)
-    return ConversationHandler.END
-
 async def info(update, context, query=""):
     user_info = context.user_data
     
@@ -265,27 +216,26 @@ Link: `{generate_link(user_info)}`
     else:
         await update.message.reply_text("No information available. Use /start to set your information.")
 
-## Handlers for replies
-address_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_address)
-amount_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_amount)
-memo_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_memo)
+async def get_reply(update, context, var):
+    user_data = context.user_data
+    user_data[var] = update.message.text
 
-name_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_name)
-description_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_description)
-buttonbgcolor_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_buttonbgcolor)
-textcolor_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, get_textcolor)
+    await info(update, context)
+    return ConversationHandler.END
 
+def get_message_handler(var):
+    return MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_reply(update, context, var))
 
 conversation_handler = ConversationHandler(
     entry_points=[CallbackQueryHandler(callbacks)],
     states={
-        GETTING_ADDRESS: [address_handler],
-        GETTING_AMOUNT: [amount_handler],
-        GETTING_MEMO: [memo_handler],
-        GETTING_NAME: [name_handler],
-        GETTING_DESCRIPTION: [description_handler],
-        GETTING_BUTTONBGCOLOR: [buttonbgcolor_handler],
-        GETTING_TEXTCOLOR: [textcolor_handler],
+        GETTING_ADDRESS: [get_message_handler("address")],
+        GETTING_AMOUNT: [get_message_handler("amount")],
+        GETTING_MEMO: [get_message_handler("memo")],
+        GETTING_NAME: [get_message_handler("name")],
+        GETTING_DESCRIPTION: [get_message_handler("description")],
+        GETTING_BUTTONBGCOLOR: [get_message_handler("buttonbgcolor")],
+        GETTING_TEXTCOLOR: [get_message_handler("textcolor")],
     },
     fallbacks=[],
 )
