@@ -106,7 +106,7 @@ async def callbacks(update: Update, context: CallbackContext):
                 await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "first":
             page = 0
-            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(geneBOT_TOKEN_TROCADORrate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
+            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
         elif action == "last":
             page = total_pages - 1
             await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)))
@@ -263,13 +263,32 @@ async def get_reply(update, context, var):
     await info(update, context)
     return ConversationHandler.END
 
+async def get_address(update, context):
+    user_data = context.user_data
+
+    if (await validate_address(api_key, user_data['ticker_to'], user_data['network_to'], update.message.text)):
+        user_data['address'] = update.message.text
+        await info(update, context)
+        return ConversationHandler.END
+    else:
+        keyboard = [
+            [
+                InlineKeyboardButton("⬅️ back", callback_data="coin_edit_coin"),
+            ],
+        ]
+
+        await update.message.reply_text("The entered address is not valid. Please enter your address again:", reply_markup=InlineKeyboardMarkup(keyboard))
+        return GETTING_ADDRESS
+
+
+
 def get_message_handler(var):
     return MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_reply(update, context, var))
 
 conversation_handler = ConversationHandler(
     entry_points=[CallbackQueryHandler(callbacks)],
     states={
-        GETTING_ADDRESS: [get_message_handler("address")],
+        GETTING_ADDRESS: [MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_address(update, context))],
         GETTING_AMOUNT: [get_message_handler("amount")],
         GETTING_MEMO: [get_message_handler("memo")],
         GETTING_NAME: [get_message_handler("name")],

@@ -1,4 +1,5 @@
 import json
+import requests
 from math import ceil
 from typing import Dict
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -41,6 +42,20 @@ def generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_P
     keyboard.append(page_buttons)
 
     return keyboard
+
+async def validate_address(api_key, ticker, network, address):
+    try:
+        response = requests.get("https://trocador.app/api/validateaddress", params={"api_key": api_key, "ticker": ticker, "network": network, "address": address})
+        if response.status_code == 200:
+            data = response.json()
+            result = data.get("result")
+            return result == True
+        else:
+            return False
+
+    except requests.exceptions.RequestException as e:
+        print(f"Request Error: {e}")
+        return False
 
 def generate_link(base_url, params_dict):
     if 'ticker_to' in params_dict and 'network_to' in params_dict and 'address' in params_dict:
