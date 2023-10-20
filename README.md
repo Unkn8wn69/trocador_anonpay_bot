@@ -32,6 +32,8 @@ The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://
 
 - Python 3.9+
 - A [Telegram bot](https://core.telegram.org/bots#6-botfather) and its token (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))
+- python-telegram-bot
+- python-dotenv
 
 ## Credits
 
