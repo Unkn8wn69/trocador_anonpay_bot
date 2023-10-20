@@ -84,10 +84,3 @@ def generate_link(base_url, params_dict):
             return f"{base_url}?{query_string}"
     else:
         return "You have to set a coin and address"
-
-
-def generate_link_old(user_info):
-    if 'ticker_to' in user_info and 'network_to' in user_info and 'address' in user_info:
-        return f"https://trocador.app/anonpay/?ticker_to={user_info['ticker_to']}&network_to={user_info['network_to']}&address={user_info['address']}"
-    else:
-        return "You have to set a coin and address"

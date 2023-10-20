@@ -39,3 +39,24 @@ def text_other(user_info):
 📧 Notification email: {display_if_set(user_info, 'email')}
 🥇 Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
 🌐 Webhook: {display_if_set(user_info, 'webhook')}"""
+
+editing_questions = {
+    "amount": "What would you like to be the predefined receiving amount? (Example: 0.2)",
+    "memo": "What would you like to be the memo/ExtraID for the transaction?",
+    "donation": "Would you like this anonpay to be a donation-page?",
+    "cant_donation": "You can only change this when Donation is disabled",
+    "direct": "When someone wants to pay with your receiving currency over anonpay, would you like that to be disabled?",
+    "simple": "Would you like a simpler checkout process? (Better for users that are inexperienced with crypto)",
+    "editable": "Would you like that the user can change the amount?",
+    "name": "Please send the name you want to appear on the widget. Special characters must be url encoded ('A B' is 'A%20B')",
+    "description": "Please send a description to appear in the checkout screen for the payment/donation. Special characters must be url encoded ('A B' is 'A%20B')",
+    "buttonbgcolor": "Please send the color of the button, should be in hex format without the '#' (e.g., ff0000 for red). You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)",
+    "text": "Please send the color of the text, should be in hex format without the '#' (e.g., ff0000 for red). You can get the HEX code from [here](https://www.w3schools.com/colors/colors_picker.asp)",
+    "bgcolor": "Do you want to give the page a gray background, otherwise it'll be transparent/white?",
+    "coin": "Please specify the coin and address details.",
+    "referral": "Please send your Trocador referral code, if you don't have one, get it [here](https://trocador.app/en/affiliate/)",
+    "fiat": "If you want the amount to be in a fiat equivalent, provide a valid currency abbreviation (example: USD for US-Dollar).",
+    "email": "Enter an email in which you will receive confirmation when the transaction is completed",
+    "logpolicy": "If you want to use only on exchanges with a minimum of A, B, C, or D log policy rating, please provide this parameter. More info [here](https://trocador.app/en/) under 'Is it really private? Isn't KYC required?'",
+    "webhook": "If you provide a URL now, every time the status of the transaction changes, you will receive on this URL a POST request sending you the transaction data; this avoids having to call our server multiple times to check the transaction status."
+}

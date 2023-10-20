@@ -49,7 +49,10 @@ async def edit_text(update, context, query, user_info, back_callback, text, var)
             ],
     ]
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    try:
+        await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    except:
+        await update.message.reply_text(text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
 
 async def can_only_edit_when(update, context, query, text, text_edit, back_callback, edit_callback):
     keyboard = [
@@ -117,7 +120,7 @@ async def edit_ui(update, context, query, user_info):
                 InlineKeyboardButton("🔣 Description", callback_data="edit_ui_description"),
             ],
             [
-                InlineKeyboardButton("🔳 Button", callback_data="edit_ui_button"),
+                InlineKeyboardButton("🔳 Button", callback_data="edit_ui_buttonbgcolor"),
                 InlineKeyboardButton("🔤 Text", callback_data="edit_ui_text"),
                 InlineKeyboardButton("🔲 Background", callback_data="edit_ui_bgcolor"),
             ],
