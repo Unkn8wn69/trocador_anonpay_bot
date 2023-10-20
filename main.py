@@ -38,6 +38,7 @@ async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_P
     global page
     global total_pages
     global options
+    page = 0
     with open("coins/coins.json", "r") as json_file:
         options = json.load(json_file)
     
