@@ -24,6 +24,8 @@ The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://
 * [X] Demo bot hosting
 * [X] Reset conversation with the `/reset` command
 * [ ] Automatically validate user input e.g the receiving address
+    * [X] Validating address
+    * [ ] Validating other values
 * [ ] Localized bot language
 * [ ] Save and Load configurations
 * [ ] Get notifications for ongoing tansfers via the bot
