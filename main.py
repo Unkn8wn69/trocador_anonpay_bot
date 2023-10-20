@@ -7,7 +7,7 @@ import json
 from dotenv import load_dotenv
 from math import ceil
 from typing import Dict
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, constants
 from telegram.ext import PicklePersistence, Application,ConversationHandler, MessageHandler, filters, CallbackContext, CallbackQueryHandler, CommandHandler, ConversationHandler, ContextTypes, MessageHandler, filters, CallbackQueryHandler, CallbackContext
 import os
 from utils import *
@@ -265,6 +265,7 @@ async def get_reply(update, context, var):
 
 async def get_address(update, context):
     user_data = context.user_data
+    await context.bot.send_chat_action(chat_id=update.effective_message.chat_id, action=constants.ChatAction.TYPING)
 
     if (await validate_address(api_key, user_data['ticker_to'], user_data['network_to'], update.message.text)):
         user_data['address'] = update.message.text
