@@ -4,6 +4,7 @@
 
 import logging
 import json
+from dotenv import load_dotenv
 from math import ceil
 from typing import Dict
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -13,7 +14,9 @@ from utils import *
 from edit import *
 from strings import *
 
-bot_token = os.environ.get('BOT_TOKEN_TROCADOR')
+load_dotenv()
+bot_token = os.getenv('BOT_TOKEN_TROCADOR')
+api_key = os.getenv('API_KEY')
 
 # logging config
 logging.basicConfig(
