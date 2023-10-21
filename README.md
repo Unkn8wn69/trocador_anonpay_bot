@@ -10,9 +10,10 @@ The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://
 
 ## Screenshots
 
+
 | <img src="images/start.png" width="200"/> | <img src="images/info.png" width="200"/> | <img src="images/options.png" width="200"/> | <img src="images/all_other_options.png" width="400"/> |
-| :-----------------------------------------: | :----------------------------------------: | :---------------------------------------: | :----------------------------------------------------: |
-|                   Start                   |                 Overview                 |                 Options                 |                   All option menus                   |
+| :-----------------------------------------: | :----------------------------------------: | :-------------------------------------------: | :-----------------------------------------------------: |
+|                   Start                   |                 Overview                 |                   Options                   |                   All option menus                   |
 
 ## Features
 
@@ -23,9 +24,7 @@ The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://
 * [X] Get Tor & I2P links
 * [X] Demo bot hosting
 * [X] Reset conversation with the `/reset` command
-* [ ] Automatically validate user input e.g the receiving address
-    * [X] Validating address
-    * [ ] Validating other values
+* [X] Automatically validate all user input
 * [ ] Localized bot language
 * [ ] Save and Load configurations
 * [ ] Get notifications for ongoing tansfers via the bot
@@ -34,8 +33,28 @@ The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://
 
 - Python 3.9+
 - A [Telegram bot](https://core.telegram.org/bots#6-botfather) and its token (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))
+- A Trocador API Token (Get it from [here](https://trocador.app/en/affiliate/)
 - python-telegram-bot
 - python-dotenv
+
+## Installation
+
+0. Install dependencies
+
+   `pip install python-telegram-bot python-dotenv`
+
+   For externally managed environment on Arch:
+
+   ```
+   sudo pacman -S python-dotenv
+   yay -S python-telegram-bot
+   ```
+
+   1. Prepare the .env file by renaming .env.example and entering the values
+   2. `cp .env.example .env`
+   3. Start the bot
+
+      `python main.py`
 
 ## Credits
 
