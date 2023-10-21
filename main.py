@@ -255,7 +255,7 @@ async def info(update, context, query=""):
         except:
             await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=info_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
     else:
-        reply_text = "No information available. Use /start to set your information."
+        reply_text = "Receiving coin and address not set, please set it with /start"
         try:
             await update.message.reply_text(reply_text)
         except:
