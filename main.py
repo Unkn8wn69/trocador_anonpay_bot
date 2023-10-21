@@ -251,7 +251,7 @@ async def info(update, context, query=None):
         await send_formatted_message(update, context, info_text, keyboard, query)
     else:
         reply_text = replies['info_coin_address_not_set']
-        await send_formatted_message(update, context, reply_text, keyboard, query)
+        await send_formatted_message(update, context, reply_text, None, query)
 
 async def get_reply(update, context, var):
     user_data = context.user_data
@@ -311,7 +311,7 @@ conversation_handler = ConversationHandler(
         GETTING_FIAT: [get_validated_message_handler("fiat", GETTING_FIAT, "edit_other", r'\b(?:' + '|'.join(map(re.escape, available_currencies)) + r')\b')],
         GETTING_EMAIL: [get_validated_message_handler("email", GETTING_EMAIL, "edit_other", r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$')],
         GETTING_LOGPOLICY: [get_validated_message_handler("logpolicy", GETTING_LOGPOLICY, "edit_other", r'^[ABC]$')],
-        GETTING_WEBHOOK: [get_message_handler("webhook")],
+        GETTING_WEBHOOK: [get_validated_message_handler("webhook", GETTING_WEBHOOK, "edit_other", r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')],
     },
     fallbacks=[],
 )
