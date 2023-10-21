@@ -45,9 +45,10 @@ async def edit_text(update, context, query, user_info, back_callback, text, var)
     keyboard = [
             [
                 InlineKeyboardButton("❌ Cancel", callback_data=back_callback),
-                InlineKeyboardButton("🗑️ Delete", callback_data=f"edit_delete_{var}")
             ],
     ]
+    if var in user_info:
+        keyboard[0].append(InlineKeyboardButton("🗑️ Delete", callback_data=f"edit_delete_{var}"))
 
     try:
         await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
