@@ -175,7 +175,7 @@ async def callbacks(update: Update, context: CallbackContext):
                 elif subaction == "buttonbgcolor":
                     await edit_text(update, context, query, user_info, '_'.join(data[:2]), editing_questions[subaction], data[2])
                     return GETTING_BUTTONBGCOLOR
-                elif subaction == "text":
+                elif subaction == "textcolor":
                     await edit_text(update, context, query, user_info, '_'.join(data[:2]), editing_questions[subaction], data[2])
                     return GETTING_TEXTCOLOR
                 elif subaction == "bgcolor":
@@ -255,7 +255,11 @@ async def info(update, context, query=""):
         except:
             await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=info_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
     else:
-        await update.message.reply_text("No information available. Use /start to set your information.")
+        reply_text = "No information available. Use /start to set your information."
+        try:
+            await update.message.reply_text(reply_text)
+        except:
+            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown")
 
 async def get_reply(update, context, var):
     user_data = context.user_data
@@ -285,6 +289,7 @@ async def get_address(update, context):
 async def get_valid_answer(update, context, var, regex, callback, back_callback, text):
     user_data = context.user_data
     reply = update.message.text
+    await context.bot.send_chat_action(chat_id=update.effective_message.chat_id, action=constants.ChatAction.TYPING)
 
     if re.match(regex, reply):
         user_data[var] = reply
@@ -297,18 +302,21 @@ async def get_valid_answer(update, context, var, regex, callback, back_callback,
 def get_message_handler(var):
     return MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_reply(update, context, var))
 
+def get_validated_message_handler(var, return_value, callback, regex):
+    return MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_valid_answer(update, context, var, regex, return_value, callback, editing_questions[var]))
+
 conversation_handler = ConversationHandler(
     entry_points=[CallbackQueryHandler(callbacks)],
     states={
         GETTING_ADDRESS: [MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_address(update, context))],
-        GETTING_AMOUNT: [MessageHandler(filters.TEXT & ~filters.COMMAND, lambda update, context: get_valid_answer(update, context, "amount", r'^\d+(\.\d+)?$', GETTING_AMOUNT, "edit_coin", "What would you like to be the predefined receiving amount? (Example: 0.2)"))],
+        GETTING_AMOUNT: [get_validated_message_handler("amount", GETTING_AMOUNT, "edit_coin", r'^\d+(\.\d+)?$')],
         GETTING_MEMO: [get_message_handler("memo")],
         GETTING_NAME: [get_message_handler("name")],
         GETTING_DESCRIPTION: [get_message_handler("description")],
-        GETTING_BUTTONBGCOLOR: [get_message_handler("buttonbgcolor")],
-        GETTING_TEXTCOLOR: [get_message_handler("textcolor")],
+        GETTING_BUTTONBGCOLOR: [get_validated_message_handler("buttonbgcolor", GETTING_BUTTONBGCOLOR, "edit_ui", r'\b[0-9A-Fa-f]{6}\b')],
+        GETTING_TEXTCOLOR: [get_validated_message_handler("textcolor", GETTING_TEXTCOLOR, "edit_ui", r'\b[0-9A-Fa-f]{6}\b')],
         GETTING_REFERRAL: [get_message_handler("referral")],
-        GETTING_FIAT: [get_message_handler("fiat")],
+        GETTING_FIAT: [get_validated_message_handler("fiat", GETTING_FIAT, "edit_other", r'\b(?:' + '|'.join(map(re.escape, available_currencies)) + r')\b')],
         GETTING_EMAIL: [get_message_handler("email")],
         GETTING_LOGPOLICY: [get_message_handler("logpolicy")],
         GETTING_WEBHOOK: [get_message_handler("webhook")],

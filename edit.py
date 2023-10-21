@@ -121,7 +121,7 @@ async def edit_ui(update, context, query, user_info):
             ],
             [
                 InlineKeyboardButton("🔳 Button", callback_data="edit_ui_buttonbgcolor"),
-                InlineKeyboardButton("🔤 Text", callback_data="edit_ui_text"),
+                InlineKeyboardButton("🔤 Text", callback_data="edit_ui_textcolor"),
                 InlineKeyboardButton("🔲 Background", callback_data="edit_ui_bgcolor"),
             ],
     ]
