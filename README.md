@@ -50,11 +50,12 @@ The bot is currently availiable on Telegram at [@unoffical_anonpay_bot](https://
    yay -S python-telegram-bot
    ```
 
-   1. Prepare the .env file by renaming .env.example and entering the values
-   2. `cp .env.example .env`
-   3. Start the bot
+1. Prepare the .env file by renaming .env.example and entering the values
 
-      `python main.py`
+    `cp .env.example .env`
+3. Start the bot
+      
+    `python main.py`
 
 ## Credits
 
