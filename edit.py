@@ -144,7 +144,7 @@ async def edit_other(update, context, query, user_info):
                 InlineKeyboardButton("📧 Notification Email", callback_data="edit_other_email"),
             ],
             [
-                InlineKeyboardButton("🥇 Minimum KYC-Score", callback_data="edit_other_logpolicy"),
+                InlineKeyboardButton("🥇 Minimum Logpolicy-Score", callback_data="edit_other_logpolicy"),
                 InlineKeyboardButton("🌐 Webhook", callback_data="edit_other_webhook"),
             ],
     ]

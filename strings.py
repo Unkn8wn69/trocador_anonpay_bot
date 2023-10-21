@@ -37,7 +37,7 @@ def text_other(user_info):
 🤝 Trocador referral: {display_if_set(user_info, 'referral')}
 💲 Fiat equivalent: {display_if_set(user_info, 'fiat')}
 📧 Notification email: {display_if_set(user_info, 'email')}
-🥇 Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
+🥇 Minimum Logpoliy score (A, B or C): {display_if_set(user_info, 'logpolicy')}
 🌐 Webhook: {display_if_set(user_info, 'webhook')}"""
 
 replies = {
@@ -64,7 +64,7 @@ editing_questions = {
     "referral": "Please send your Trocador referral code, if you don't have one, get it [here](https://trocador.app/en/affiliate/)",
     "fiat": "If you want the amount to be in a fiat equivalent, provide a valid currency abbreviation (example: USD for US-Dollar).",
     "email": "Enter an email in which you will receive confirmation when the transaction is completed",
-    "logpolicy": "If you want to use only on exchanges with a minimum of A, B, C, or D log policy rating, please provide this parameter. More info [here](https://trocador.app/en/) under 'Is it really private? Isn't KYC required?'",
+    "logpolicy": "If you want to use only on exchanges with a minimum of A, B, or C log policy rating, please provide this parameter. More info [here](https://trocador.app/en/) under 'Is it really private? Isn't KYC required?'",
     "webhook": "If you provide a URL now, every time the status of the transaction changes, you will receive on this URL a POST request sending you the transaction data; this avoids having to call our server multiple times to check the transaction status."
 }
 

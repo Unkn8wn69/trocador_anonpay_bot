@@ -310,7 +310,7 @@ conversation_handler = ConversationHandler(
         GETTING_REFERRAL: [get_message_handler("referral")],
         GETTING_FIAT: [get_validated_message_handler("fiat", GETTING_FIAT, "edit_other", r'\b(?:' + '|'.join(map(re.escape, available_currencies)) + r')\b')],
         GETTING_EMAIL: [get_validated_message_handler("email", GETTING_EMAIL, "edit_other", r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$')],
-        GETTING_LOGPOLICY: [get_message_handler("logpolicy")],
+        GETTING_LOGPOLICY: [get_validated_message_handler("logpolicy", GETTING_LOGPOLICY, "edit_other", r'^[ABC]$')],
         GETTING_WEBHOOK: [get_message_handler("webhook")],
     },
     fallbacks=[],
