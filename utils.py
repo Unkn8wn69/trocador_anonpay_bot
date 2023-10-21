@@ -84,3 +84,19 @@ def generate_link(base_url, params_dict):
             return f"{base_url}?{query_string}"
     else:
         return "You have to set a coin and address"
+
+async def send_formatted_message(update, context, text, keyboard, query=None):
+    
+    if keyboard:
+        try:
+            await update.message.reply_text(text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
+        except:
+            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    else:
+        try:
+            await update.message.reply_text(text, parse_mode='Markdown')
+        except:
+            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown")
+    
+
+    

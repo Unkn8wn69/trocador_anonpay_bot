@@ -4,7 +4,7 @@ import json
 from math import ceil
 from typing import Dict
 from main import page, total_pages, options
-from utils import generate_buttons, display_if_set
+from utils import generate_buttons, display_if_set, send_formatted_message
 from strings import *
 
 async def info_edit(update, context, query):
@@ -24,7 +24,7 @@ async def info_edit(update, context, query):
 
     reply_text="What category of options would you like to edit?"
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 async def edit_bool(update, context, query, user_info, variable, text, back_callback):
     keyboard = [
@@ -39,7 +39,7 @@ async def edit_bool(update, context, query, user_info, variable, text, back_call
 
     reply_text=text
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 async def edit_text(update, context, query, user_info, back_callback, text, var):
     keyboard = [
@@ -50,10 +50,7 @@ async def edit_text(update, context, query, user_info, back_callback, text, var)
     if var in user_info:
         keyboard[0].append(InlineKeyboardButton("🗑️ Delete", callback_data=f"edit_delete_{var}"))
 
-    try:
-        await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
-    except:
-        await update.message.reply_text(text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, text, keyboard, query)
 
 async def can_only_edit_when(update, context, query, text, text_edit, back_callback, edit_callback):
     keyboard = [
@@ -63,7 +60,7 @@ async def can_only_edit_when(update, context, query, text, text_edit, back_callb
             ],
     ]
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 
 # Editing questions for coin details
@@ -86,7 +83,7 @@ async def edit_coin_details(update, context, query, user_info):
 *What option would you like to edit?*
 """
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 # Editing the Transaction type
 
@@ -109,7 +106,7 @@ async def edit_type(update, context, query, user_info):
 *What option would you like to edit?*
 """
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 # Editing the UI & Apperance
 
@@ -133,7 +130,7 @@ async def edit_ui(update, context, query, user_info):
 *What option would you like to edit?*
 """
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 ## Additional options
 
@@ -160,4 +157,4 @@ async def edit_other(update, context, query, user_info):
 *What option would you like to edit?*
 """
 
-    await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    await send_formatted_message(update, context, reply_text, keyboard, query)

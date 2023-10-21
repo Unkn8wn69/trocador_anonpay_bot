@@ -51,7 +51,7 @@ async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_P
     keyboard = generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)
 
     if (type == "coin"):
-        reply_text = "Please select a coin:"
+        reply_text = "Please select the coin you want to receive:"
     else:
         reply_text = "Please select a coin that should be preselected for the user:"
     try:
@@ -116,7 +116,7 @@ async def callbacks(update: Update, context: CallbackContext):
             await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type, query)
         elif action == "done":
             if (type == "coin"):
-                await query.edit_message_text("Please enter your address:")
+                await query.edit_message_text("Please enter your receiving address:")
                 return GETTING_ADDRESS
             else:
                 await info(update, context, query)
