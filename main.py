@@ -136,7 +136,7 @@ async def callbacks(update: Update, context: CallbackContext):
             else:
                 subaction = data[2]
                 if subaction == "coin":
-                    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, query)
+                    await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "coin", query)
                 elif subaction == "amount":
                     await edit_text(update, context, query, user_info, '_'.join(data[:2]), editing_questions[subaction], data[2])
                     return GETTING_AMOUNT

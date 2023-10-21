@@ -89,7 +89,7 @@ async def send_formatted_message(update, context, text, keyboard, query=None):
     
     if keyboard:
         try:
-            await update.message.reply_text(text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
+            await update.message.reply_text(text= text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
         except:
             await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
     else:
