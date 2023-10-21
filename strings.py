@@ -40,6 +40,13 @@ def text_other(user_info):
 🥇 Minimum KYC score (A, B or C): {display_if_set(user_info, 'logpolicy')}
 🌐 Webhook: {display_if_set(user_info, 'webhook')}"""
 
+replies = {
+    "select_receving": "Please select the coin you want to receive:",
+    "select_preselected": "Please select a coin that should be preselected for the user:",
+    "info_coin_address_not_set": "Receiving coin and address not set, please set it with /start",
+
+}
+
 editing_questions = {
     "amount": "What would you like to be the predefined receiving amount? (Example: 0.2)",
     "memo": "What would you like to be the memo/ExtraID for the transaction?",

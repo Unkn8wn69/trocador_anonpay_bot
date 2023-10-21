@@ -38,7 +38,7 @@ total_pages = 0
 options = []
 
 
-async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type, query=""):
+async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type, query=None):
     global page
     global total_pages
     global options
@@ -51,13 +51,11 @@ async def coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_P
     keyboard = generate_buttons(options, page, total_pages, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, type)
 
     if (type == "coin"):
-        reply_text = "Please select the coin you want to receive:"
+        reply_text = replies['select_receving']
     else:
-        reply_text = "Please select a coin that should be preselected for the user:"
-    try:
-        await update.message.reply_text(reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
-    except:
-        await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, reply_markup=InlineKeyboardMarkup(keyboard))
+        reply_text = replies['select_preselected']
+    
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 async def start(update, context):
     await coin_and_address_edit(update, context, OPTIONS_PER_PAGE, COLUMNS_PER_PAGE, "coin")
@@ -205,7 +203,7 @@ async def callbacks(update: Update, context: CallbackContext):
     elif category == "switch":
         await switch_bool(update, context, user_info, data, query)
 
-async def reset_user_data(update, context, query=""):
+async def reset_user_data(update, context, query=None):
     user_id = update.effective_user.id
     if len(context.user_data) > 0:
         context.user_data.clear()
@@ -225,7 +223,7 @@ async def switch_bool(update, context, user_info, data, query):
         user_info[data[1]] = "True"
         await info(update, context, query)
 
-async def info(update, context, query=""):
+async def info(update, context, query=None):
     user_info = context.user_data
     
     if user_info:
@@ -250,16 +248,10 @@ async def info(update, context, query=""):
             ],
         ]
         
-        try:
-            await update.message.reply_text(info_text, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard))
-        except:
-            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=info_text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+        await send_formatted_message(update, context, info_text, keyboard, query)
     else:
-        reply_text = "Receiving coin and address not set, please set it with /start"
-        try:
-            await update.message.reply_text(reply_text)
-        except:
-            await context.bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id,text=reply_text, parse_mode="Markdown")
+        reply_text = replies['info_coin_address_not_set']
+        await send_formatted_message(update, context, reply_text, keyboard, query)
 
 async def get_reply(update, context, var):
     user_data = context.user_data

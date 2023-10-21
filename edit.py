@@ -26,7 +26,7 @@ async def info_edit(update, context, query):
 
     await send_formatted_message(update, context, reply_text, keyboard, query)
 
-async def edit_bool(update, context, query, user_info, variable, text, back_callback):
+async def edit_bool(update, context, query, user_info, variable, reply_text, back_callback):
     keyboard = [
             [
                 InlineKeyboardButton("✅ Yes", callback_data=f"switch_{variable}_yes"),
@@ -37,11 +37,9 @@ async def edit_bool(update, context, query, user_info, variable, text, back_call
             ],
     ]
 
-    reply_text=text
-
     await send_formatted_message(update, context, reply_text, keyboard, query)
 
-async def edit_text(update, context, query, user_info, back_callback, text, var):
+async def edit_text(update, context, query, user_info, back_callback, reply_text, var):
     keyboard = [
             [
                 InlineKeyboardButton("❌ Cancel", callback_data=back_callback),
@@ -50,7 +48,7 @@ async def edit_text(update, context, query, user_info, back_callback, text, var)
     if var in user_info:
         keyboard[0].append(InlineKeyboardButton("🗑️ Delete", callback_data=f"edit_delete_{var}"))
 
-    await send_formatted_message(update, context, text, keyboard, query)
+    await send_formatted_message(update, context, reply_text, keyboard, query)
 
 async def can_only_edit_when(update, context, query, text, text_edit, back_callback, edit_callback):
     keyboard = [
@@ -60,7 +58,7 @@ async def can_only_edit_when(update, context, query, text, text_edit, back_callb
             ],
     ]
 
-    await send_formatted_message(update, context, reply_text, keyboard, query)
+    await send_formatted_message(update, context, text, keyboard, query)
 
 
 # Editing questions for coin details
